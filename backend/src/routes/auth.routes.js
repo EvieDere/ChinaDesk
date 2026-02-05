@@ -36,8 +36,8 @@ router.post('/login', async (req, res) => {
         return res.status(400).json({error: "email y password son requeridos"}); //Mensajes genéricos para no batallar
     }
 
-    const exists = await User.findOne({ email }); //findOne busca una sola coincidencia
-    if (!exists) return res.status(401).json({error: "Credenciales no válidas"})
+    const user = await User.findOne({ email }); //findOne busca una sola coincidencia
+    if (!user) return res.status(401).json({error: "Credenciales no válidas"})
 
     const ok = await bcrypt.compare(password, user.passwordHash);
     if(!ok) return res.status(401).json({error: "Credenciales inválidas"});
@@ -47,6 +47,8 @@ router.post('/login', async (req, res) => {
         process.env.JWT_SECRET,
         { expiresIn: "2h"}
     );
+
+    return res.status(201).json({ jwt_token: token });
 
 });
 

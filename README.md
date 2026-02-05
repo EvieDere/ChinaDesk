@@ -1,4 +1,4 @@
-# Pizzeria-Desk
+# Comida China DESK
 
 ## Steps to Create a New PR
 1. Send command to update my current main branch
@@ -12,9 +12,13 @@ Note: Branch name should be related to the change
 3. Send command to validate changes
 git status
 
-4. Command to commit changes
+4. Send command to add changes
+git add (. if all) (file name)
+
+5. Command to commit changes
 git commit -n "Message"
 
-5. Send command to push changes into remote repo
+6. Send command to push changes into remote repo
 git push "branch upward name"
+
 
