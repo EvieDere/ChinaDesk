@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Menú Comida China</title>
+  <link rel="stylesheet" href="/public/CSS/styles.css">
+</head>
+
+<body>
+
+<header>
+  <h1>🍜 Menú Comida China</h1>
+</header>
+
+<main>
+
+  <!-- PASO 1 PAQUETE -->
+  <section class="step active">
+    <h2>Paquete</h2>
+    <div class="grid">
+      <div class="card" onclick="selectPackage(1,140,this)">
+        <img src="/public/Resources/Img-Menu/CC1.png">
+        <p>1 guiso<br>$140</p>
+      </div>
+      <div class="card" onclick="selectPackage(2,160,this)">
+        <img src="/public/Resources/Img-Menu/CC2.png">
+        <p>2 guisos<br>$160</p>
+      </div>
+      <div class="card" onclick="selectPackage(3,185,this)">
+        <img src="/public/Resources/Img-Menu/CC3.png">
+        <p>3 guisos<br>$185</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PASO 2 BASE -->
+  <section class="step">
+    <h2>Base</h2>
+    <div class="grid">
+      <div class="card" onclick="selectBase('Arroz',this)">
+        <img src="/public/Resources/Img-Menu/Arroz.png">
+        <p>Arroz</p>
+      </div>
+      <div class="card" onclick="selectBase('Pasta',this)">
+        <img src="/public/Resources/Img-Menu/Pasta.png">
+        <p>Pasta</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PASO 3 GUISOS -->
+  <section class="step">
+  <h2>Guisos (elige hasta <span id="limiteGuisos">0</span>)</h2>
+  <div class="grid" id="guisos"></div>
+</section>
+
+
+  <!-- PASO 4 BEBIDAS -->
+  <section class="step">
+    <h2>Bebidas</h2>
+
+    <div class="drink">
+      <img src="/public/Resources/Img-Menu/Agua.png">
+      Agua $20
+      <button onclick="changeDrink('agua',-1)">-</button>
+      <span id="agua">0</span>
+      <button onclick="changeDrink('agua',1)">+</button>
+    </div>
+
+    <div class="drink">
+      <img src="/public/Resources/Img-Menu/Refresco.png">
+      Refresco $25
+      <button onclick="changeDrink('refresco',-1)">-</button>
+      <span id="refresco">0</span>
+      <button onclick="changeDrink('refresco',1)">+</button>
+    </div>
+
+    <div class="drink">
+      <img src="/public/Resources/Img-Menu/Refresco.png">
+      Sin azúcar $25
+      <button onclick="changeDrink('zero',-1)">-</button>
+      <span id="zero">0</span>
+      <button onclick="changeDrink('zero',1)">+</button>
+    </div>
+  </section>
+
+  <!-- PASO 5 PAGO -->
+  <section class="step">
+    <h2>Pago</h2>
+    <button onclick="pay('Efectivo')">Efectivo</button>
+    <button onclick="pay('Tarjeta')">Tarjeta</button>
+    <p>Total: $<span id="total">0</span></p>
+  </section>
+
+  <!-- RECIBO -->
+  <section class="step">
+    <h2>Recibo</h2>
+    <div id="recibo"></div>
+  </section>
+
+</main>
+
+<!-- NAVEGACIÓN -->
+<footer>
+  <button onclick="prevStep()">Regresar</button>
+  <button onclick="nextStep()">Siguiente</button>
+</footer>
+
+<script src="/public/JS/app.js"></script>
+</body>
+</html>
