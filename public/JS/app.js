@@ -16,26 +16,29 @@ function showStep() {
 
   const footer = document.querySelector('footer');
 
-  // Paso 4 = Pago, Paso 5 = Recibo
-  if (step === 5) {
+  // Ocultar navegación SOLO en recibo
+  if (step === steps.length - 1) {
     footer.style.display = 'none';
   } else {
     footer.style.display = 'flex';
   }
-
-  // Al entrar a pago recalcula el total
-  if (step === 4) {
-    calculateTotal();
-  }
 }
+
 
 showStep();
 
 /* -------- NAVEGACIÓN -------- */
 function nextStep() {
   if (step < steps.length - 1) step++;
+
+  // Si llegamos al último paso (recibo)
+  if (step === steps.length - 1) {
+    generateReceipt();
+  }
+
   showStep();
 }
+
 
 function prevStep() {
   if (step > 0) step--;
@@ -70,12 +73,12 @@ function selectBase(base, el) {
 
 /* -------- GUISOS -------- */
 const guisosData = [
-  { name: 'Res', img: '/public/Imgs/Res.png' },
-  { name: 'Pollo', img: '/public/Imgs/Pollo.png' },
-  { name: 'Puerco', img: '/public/Imgs/Puerco.png' },
-  { name: 'Res picante', img: '/public/Imgs/Res picante.png' },
-  { name: 'Pollo picante', img: '/public/Imgs/Pollo picante.png' },
-  { name: 'Puerco picante', img: '/public/Imgs/Puerco picante.png' }
+  { name: 'Res', img: '/public/Resources/Img-Menu/Res.png' },
+  { name: 'Pollo', img: '/public/Resources/Img-Menu/Pollo.png' },
+  { name: 'Puerco', img: '/public/Resources/Img-Menu/Puerco.png' },
+  { name: 'Res picante', img: '/public/Resources/Img-Menu/Res picante.png' },
+  { name: 'Pollo picante', img: '/public/Resources/Img-Menu/Pollo picante.png' },
+  { name: 'Puerco picante', img: '/public/Resources/Img-Menu/Puerco picante.png' }
 ];
 
 const guisosDiv = document.getElementById('guisos');
@@ -147,7 +150,9 @@ function calculateTotal() {
 
 
 /* -------- PAGO -------- */
-function pay(method) {
+function generateReceipt() {
+  calculateTotal();
+
   const time = new Date();
   time.setMinutes(time.getMinutes() + 25);
 
@@ -155,15 +160,20 @@ function pay(method) {
     <p><b>Paquete:</b> ${order.package} guisos</p>
     <p><b>Base:</b> ${order.base}</p>
     <p><b>Guisos:</b> ${order.guisos.join(', ')}</p>
-    <p><b>Método:</b> ${method}</p>
+    <p><b>Bebidas:</b></p>
+    <ul>
+      <li>Agua: ${order.drinks.agua}</li>
+      <li>Refresco: ${order.drinks.refresco}</li>
+      <li>Sin azúcar: ${order.drinks.zero}</li>
+    </ul>
+    <p><b>Total:</b> $${order.total}</p>
     <p><b>Hora aproximada:</b> ${time.toLocaleTimeString()}</p>
     <br>
     <button onclick="resetOrder()">Está todo listo</button>
   `;
-
-  step++;
-  showStep();
 }
+
+
 
 /*---------TERMINAR PEDIDO (VOLVER AL MENU)---------*/
 function resetOrder() {
@@ -181,7 +191,7 @@ function resetOrder() {
   document.getElementById('refresco').innerText = 0;
   document.getElementById('zero').innerText = 0;
 
-  // LIMPIAR TODAS LAS SELECCIONES VISUALES
+  // 🔥 LIMPIAR TODAS LAS SELECCIONES VISUALES
   document.querySelectorAll('.card.selected')
     .forEach(card => card.classList.remove('selected'));
 
@@ -193,5 +203,6 @@ function resetOrder() {
   step = 0;
   showStep();
 }
+
 
 
