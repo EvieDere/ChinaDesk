@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Playwrite+NZ+Basic:wght@100..400&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+
+.main {
+    width: 100%;
+    min-height: 100vh;
+    background: url('/PizzeriaDesk/public/Resources/imgslogin/background.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+
+.logo{
+    font-size: 45px;
+    font-family: 'Playfair Display', serif;
+    padding-left: 20px;
+    float: left;
+    padding-top: 10px;
+    background: linear-gradient(to right, #a88d13, #d2b01a, #f0c817, 
+    #d2b01a, #a88d13);
+    background-size: 200%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: animate-gradient 2.5s linear infinite;
+}
+
+@keyframes animate-gradient {
+    to {
+        background-position: 200%;
+    }
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/*Acomodamiento del texto*/
+.header-content {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 200px 0 150px 0;
+}
+
+.header-txt {
+    width: 40%;
+    padding-right: 25px;
+}
+
+.header-txt h1 {
+    font-size: 55px;
+    line-height: 70px;
+    font-weight: 800;
+    color: #d6b709;
+    margin-bottom: 25px;
+    background: linear-gradient(to right, #a88d13, #d2b01a, #f0c817, 
+    #d2b01a, #a88d13);
+    background-size: 200%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: animate-gradient 2.5s linear infinite;
+}
+
+.header-txt p {
+    font-size: 18px;
+    color: rgb(0, 0, 0);
+}
+
+.header-img {
+    width: 60%;
+}
+
+/*Imagen*/
+.food {
+    height: auto;
+    width: 50%;
+}
+
+/*Footer*/
+.header-footer {
+    width: 100%;
+    margin-top: 40px;
+    display: flex;
+    justify-content: left;
+}
+
+.footer-box {
+    background-color: transparent;
+    padding: 20px 60px;
+    border-radius: 15px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+    max-width: 90%;
+}
+
+.footer-box p {
+    color: #fff;
+    font-size: 18px;
+    font-weight: 600;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
