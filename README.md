@@ -16,7 +16,7 @@ git status
 git add (. if all) (file name)
 
 5. Command to commit changes
-git commit -m "Message"
+git commit -n "Message"
 
 6. Send command to push changes into remote repo
 git push "branch upward name"
