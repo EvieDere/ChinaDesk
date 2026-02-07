@@ -114,9 +114,9 @@ function toggleGuiso(name, card) {
   } else {
     // agregar guiso
     if (order.guisos.length >= order.package) {
-      alert(`Solo puedes elegir ${order.package} guisos`);
-      return;
-    }
+    alert(`Solo puedes elegir ${order.package} guisos`); // Fíjate en el uso de ``
+    return;
+}
     order.guisos.push(name);
     card.classList.add('selected');
   }
@@ -129,7 +129,7 @@ function changeDrink(type, val) {
   document.getElementById(type).innerText = order.drinks[type];
 }
 
-/*---------CALC TOTAL--------*/
+/---------CALC TOTAL--------/
 function calculateTotal() {
   let total = 0;
 
@@ -175,7 +175,7 @@ function generateReceipt() {
 
 
 
-/*---------TERMINAR PEDIDO (VOLVER AL MENU)---------*/
+/---------TERMINAR PEDIDO (VOLVER AL MENU)---------/
 function resetOrder() {
   // Reiniciar datos
   order = {
@@ -203,6 +203,3 @@ function resetOrder() {
   step = 0;
   showStep();
 }
-
-
-

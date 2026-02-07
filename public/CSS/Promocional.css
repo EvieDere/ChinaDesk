@@ -10,7 +10,7 @@
 .main {
     width: 100%;
     min-height: 100vh;
-    background: url('/PizzeriaDesk/public/Resources/imgslogin/background.jpg');
+    background: url('/public/Resources/imgslogin/background.jpg');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -43,7 +43,6 @@
     margin: 0 auto;
 }
 
-/*Acomodamiento del texto*/
 .header-content {
     display: flex;
     flex-wrap: wrap;
@@ -80,13 +79,11 @@
     width: 60%;
 }
 
-/*Imagen*/
 .food {
     height: auto;
     width: 50%;
 }
 
-/*Footer*/
 .header-footer {
     width: 100%;
     margin-top: 40px;
@@ -109,4 +106,41 @@
     text-align: center;
     text-transform: uppercase;
     letter-spacing: 1px;
+}
+
+.navbar {
+    position: fixed; /* O absolute, según prefieras */
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px 100px;
+    display: flex;
+    justify-content: space-between; /* Esto manda el botón a la derecha */
+    align-items: center;
+    z-index: 99;
+    background: transparent; /* O el color de tu fondo */
+}
+
+.btnLogin-link {
+    width: 130px;
+    height: 50px;
+    background: transparent;
+    border: 2px solid #fff;
+    outline: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1.1em;
+    color: #fff;
+    font-weight: 500;
+    margin-left: 40px;
+    transition: .5s;
+    text-decoration: none; /* Quita el subrayado del link */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btnLogin-link:hover {
+    background: #fff;
+    color: #162938;
 }
