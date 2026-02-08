@@ -1,21 +1,28 @@
-const wrapper = document.querySelector('.wrapper');
-const loginLink = document.querySelector('.login-link');
-const registerLink = document.querySelector('.register-link');
-const btnPopup = document.querySelector('.btnLogin-popup');
-const iconClose = document.querySelector('.icon-close');
+const loginBtn = document.getElementById('loginBtn');
 
-registerLink.addEventListener('click', () => {
-    wrapper.classList.add('active');
-}); 
+loginBtn.addEventListener('click', async () => {
+    const form = document.getElementById('loginForm');
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
 
-loginLink.addEventListener('click', () => {
-    wrapper.classList.remove('active');
-});
+    try {
+        const response = await fetch('/api/auth/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        });
 
-btnPopup.addEventListener('click', () => {
-    wrapper.classList.add('active-popup');
-});
+        const result = await response.json();
+        const token = result.jwt_token || result.token;
 
-iconClose.addEventListener('click', () => {
-    wrapper.classList.remove('active-popup');
+        if (!token) {
+            alert("Login fallido");
+            return;
+        }
+
+        localStorage.setItem('token', token);
+        window.location.href = '/';
+    } catch (err) {
+        alert("Error de conexión");
+    }
 });
