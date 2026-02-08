@@ -8,6 +8,8 @@ const tareasRoutes = require('./src/routes/tareas.routes');
 const errorHandler = require('./src/middleware/error_handler');
 
 const pedidosRoutes = require('./src/routes/pedidos.routes');
+const productsRoutes = require('./src/routes/products.routes');
+const stewRoutes = require('./src/routes/stew.routes');
 
 const app = express();
 
@@ -28,7 +30,8 @@ app.use("/api/auth", authRoutes);
 app.use("/api/tareas", tareasRoutes);
 
 app.use("/api/pedidos", pedidosRoutes);
-
+app.use("/api/products", productsRoutes);
+app.use("/api/stew", stewRoutes);
 
 
 //En caso de que no llamamos a Health y API

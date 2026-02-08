@@ -6,11 +6,17 @@ const StewSchema = new mongoose.Schema(
             type: String,
             required: true,
             unique: true,
-            trim: true, //elimina espacios
+            trim: true,
+            lowercase: true
         },
+
+        availability: {
+            type: Boolean,
+            required: true
+        }
     },
     
     { timestamps: true}
 );
 
-module.exports = mongoose.model('StewInfo', StewSchema);
+module.exports = mongoose.model('Stew', StewSchema);
