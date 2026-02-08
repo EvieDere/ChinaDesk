@@ -25,31 +25,39 @@ router.post('/register', async (req, res) => {
 
     const user = await User.create({ email, passwordHash });
 
-    return res.status(201).json({ id: user._id, email: user.email }); //fetch desde la tabla (muestra el valor)
+    return res.status(200).json({ jwt_token: token }); //fetch desde la tabla (muestra el valor)
 
 });
 
 router.post('/login', async (req, res) => {
-    const { email, password } = req.body;
+    try {
+        const { email, password } = req.body;
 
-    if (!email || !password) {
-        return res.status(400).json({error: "email y password son requeridos"}); //Mensajes genéricos para no batallar
+        if (!email || !password) {
+            return res.status(400).json({ error: "email y password son requeridos" });
+        }
+
+        const user = await User.findOne({ email });
+        if (!user) return res.status(401).json({ error: "Credenciales no válidas" });
+
+        const ok = await bcrypt.compare(password, user.passwordHash);
+        if (!ok) return res.status(401).json({ error: "Credenciales inválidas" });
+
+        const token = jwt.sign(
+            { sub: String(user.id), email: user.email },
+            process.env.JWT_SECRET,
+            { expiresIn: "2h" }
+        );
+
+        return res.status(200).json({ jwt_token: token });
+
+    } catch (err) {
+        return res.status(200).json({
+    token: token,
+    jwt_token: token
+})
     }
-
-    const user = await User.findOne({ email }); //findOne busca una sola coincidencia
-    if (!user) return res.status(401).json({error: "Credenciales no válidas"})
-
-    const ok = await bcrypt.compare(password, user.passwordHash);
-    if(!ok) return res.status(401).json({error: "Credenciales inválidas"});
-
-    const token = jwt.sign(
-        { sub: String(user.id), email: user.email},
-        process.env.JWT_SECRET,
-        { expiresIn: "2h"}
-    );
-
-    return res.status(201).json({ jwt_token: token });
-
 });
+
 
 module.exports = router;
