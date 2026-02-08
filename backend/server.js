@@ -7,7 +7,7 @@ const authRoutes = require('./src/routes/auth.routes');
 const tareasRoutes = require('./src/routes/tareas.routes');
 const errorHandler = require('./src/middleware/error_handler');
 
-const pedidosRoutes = require('./src/routes/pedidos.routes');
+const orderRoutes = require('./src/routes/order.routes');
 const productsRoutes = require('./src/routes/products.routes');
 const stewRoutes = require('./src/routes/stew.routes');
 
@@ -29,7 +29,7 @@ app.get('/health', (req, res) => {
 app.use("/api/auth", authRoutes);
 app.use("/api/tareas", tareasRoutes);
 
-app.use("/api/pedidos", pedidosRoutes);
+app.use("/api/orders", orderRoutes);
 app.use("/api/products", productsRoutes);
 app.use("/api/stew", stewRoutes);
 
