@@ -6,12 +6,12 @@ const ProductSchema = new mongoose.Schema(
             type: String,
             required: true,
             unique: true,
-            trim: true, //elimina espacios
-            lowercase: true //convierte a minúsculas
+            trim: true,
+            lowercase: true
         },
 
-        costo: {
-            type: String,
+        price: {
+            type: Number,
             required: true
         }
     },
@@ -19,4 +19,4 @@ const ProductSchema = new mongoose.Schema(
     { timestamps: true}
 );
 
-module.exports = mongoose.model('Inventory', ProductSchema);
+module.exports = mongoose.model('Products', ProductSchema);
