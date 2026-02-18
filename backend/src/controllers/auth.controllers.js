@@ -27,11 +27,9 @@ async function register (req, res, next) {
 
     //ya que realizó la validación, verificaremos el usuario dentro de la base
     const exists = await User.findOne({ email }); //findOne busca una sola coincidencia
-
     if (exists) return res.status(409).json({error: "Usuario no válido"})
 
     const passwordHash = await bcrypt.hash(password, 10);
-
     const user = await User.create({ email, passwordHash, role: "user" });
 
     return res.status(200).json(
@@ -56,7 +54,7 @@ async function login (req, res) {
     if (!ok) return res.status(401).json({ error: "Credenciales inválidas" });
 
     const expiredMinutes = 10;
-    const expiresAt = new(Date(Date.now() + expiredMinutes * 60 * 1000));
+    const expiresAt = new Date(Date.now() + expiredMinutes * 60 * 1000);
 
     const session = await Session.create(
         {
@@ -67,13 +65,13 @@ async function login (req, res) {
 
     const token = jwt.sign(
         {
-            sub: String(user.id),
+            sub: String(user._id),
             email: user.email,
             role: user.role,
             sid: String(session._id)
         },
         process.env.JWT_SECRET,
-        { expiresIn: `${expMinutes}m`}
+        { expiresIn: `${expiredMinutes}m`}
     );
 
     // return res.status(201).json({ jwt_token: token });

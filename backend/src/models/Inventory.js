@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
-const StewSchema = new mongoose.Schema(
+const InventorySchema = new mongoose.Schema(
     {
-        stew: {
+        product : {
             type: String,
             required: true,
             unique: true,
@@ -19,4 +19,4 @@ const StewSchema = new mongoose.Schema(
     { timestamps: true}
 );
 
-module.exports = mongoose.model('Stew', StewSchema);
+module.exports = mongoose.model('Inventory', InventorySchema);
