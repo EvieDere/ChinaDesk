@@ -1,105 +1,97 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Menú Comida China</title>
-  <link rel="stylesheet" href="/public/CSS/styles-Menu.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>China Desk - Pedido</title>
+    <link rel="stylesheet" href="/frontend/CSS/styles-Menu.css">
 </head>
-
 <body>
 
 <header>
-  <h1><a href="Promocional.html" style="text-decoration: none; color: inherit;">谱 Menú Comida China</a></h1>
+    <h1>CHINA DESK</h1>
+    <button class="btn-abrir">
+        Hacer Pedido
+        <span class="flecha"></span>
+    </button>
 </header>
 
-<main>
+<!-- POPUP (visible solo para diseño estático) -->
+<div class="overlay active">
+    <div class="menu-container">
 
-  <!-- PASO 1 PAQUETE -->
-  <section class="step active">
-    <h2>Paquete</h2>
-    <div class="grid">
-      <div class="card" onclick="selectPackage(1,140,this)">
-        <img src="/public/Resources/Img-Menu/CC1.png">
-        <p>1 guiso<br>$140</p>
-      </div>
-      <div class="card" onclick="selectPackage(2,160,this)">
-        <img src="/public/Resources/Img-Menu/CC2.png">
-        <p>2 guisos<br>$160</p>
-      </div>
-      <div class="card" onclick="selectPackage(3,185,this)">
-        <img src="/public/Resources/Img-Menu/CC3.png">
-        <p>3 guisos<br>$185</p>
-      </div>
+        <button class="cerrar">✕</button>
+
+        <h2>Arma tu Platillo</h2>
+
+        <!-- 1. PAQUETE -->
+        <div class="seccion">
+            <h3>1. Elige tu Platillo</h3>
+            <div class="opciones">
+                <div class="card">1 Guiso</div>
+                <div class="card">2 Guisos</div>
+                <div class="card">3 Guisos</div>
+            </div>
+        </div>
+
+        <!-- 2. BASE -->
+        <div class="seccion">
+            <h3>2. Arroz o Pasta</h3>
+            <div class="opciones">
+                <div class="card">Arroz</div>
+                <div class="card">Pasta</div>
+            </div>
+        </div>
+
+        <!-- 3. GUISOS -->
+        <div class="seccion">
+            <h3>3. Guisos</h3>
+            <div class="opciones">
+                <div class="card">Res</div>
+                <div class="card">Pollo</div>
+                <div class="card">Puerco</div>
+                <div class="card">Res Picante</div>
+                <div class="card">Pollo Picante</div>
+                <div class="card">Puerco Picante</div>
+            </div>
+        </div>
+
+        <!-- 4. BEBIDAS -->
+        <div class="seccion">
+            <h3>4. Bebidas</h3>
+
+            <div class="drink">
+                <span>Agua</span>
+                <button>-</button>
+                <span>0</span>
+                <button>+</button>
+            </div>
+
+            <div class="drink">
+                <span>Refresco</span>
+                <button>-</button>
+                <span>0</span>
+                <button>+</button>
+            </div>
+
+            <div class="drink">
+                <span>Sin Azúcar</span>
+                <button>-</button>
+                <span>0</span>
+                <button>+</button>
+            </div>
+        </div>
+
+        <div class="seccion total-section">
+            <h3>Total: $0</h3>
+        </div>
+
+        <button class="btn-confirmar">
+            Confirmar Pedido
+        </button>
+
     </div>
-  </section>
+</div>
 
-  <!-- PASO 2 BASE -->
-  <section class="step">
-    <h2>Base</h2>
-    <div class="grid">
-      <div class="card" onclick="selectBase('Arroz',this)">
-        <img src="/public/Resources/Img-Menu/Arroz.png">
-        <p>Arroz</p>
-      </div>
-      <div class="card" onclick="selectBase('Pasta',this)">
-        <img src="/public/Resources/Img-Menu/Pasta.png">
-        <p>Pasta</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- PASO 3 GUISOS -->
-  <section class="step">
-  <h2>Guisos (elige hasta <span id="limiteGuisos">0</span>)</h2>
-  <div class="grid" id="guisos"></div>
-</section>
-
-
-  <!-- PASO 4 BEBIDAS -->
-  <section class="step">
-    <h2>Bebidas</h2>
-
-    <div class="drink">
-      <img src="/public/Resources/Img-Menu/Agua.png">
-      Agua $20
-      <button onclick="changeDrink('agua',-1)">-</button>
-      <span id="agua">0</span>
-      <button onclick="changeDrink('agua',1)">+</button>
-    </div>
-
-    <div class="drink">
-      <img src="/public/Resources/Img-Menu/Refresco.png">
-      Refresco $25
-      <button onclick="changeDrink('refresco',-1)">-</button>
-      <span id="refresco">0</span>
-      <button onclick="changeDrink('refresco',1)">+</button>
-    </div>
-
-    <div class="drink">
-      <img src="/public/Resources/Img-Menu/Refresco.png">
-      Sin azúcar $25
-      <button onclick="changeDrink('zero',-1)">-</button>
-      <span id="zero">0</span>
-      <button onclick="changeDrink('zero',1)">+</button>
-    </div>
-  </section>
-
-<!-- RECIBO -->
-<section class="step">
-  <h2>Recibo</h2>
-  <p><b>Total:</b> $<span id="total">0</span></p>
-  <div id="recibo"></div>
-</section>
-
-
-</main>
-
-<!-- NAVEGACIÓN -->
-<footer>
-  <button onclick="prevStep()">Regresar</button>
-  <button onclick="nextStep()">Siguiente</button>
-</footer>
-
-<script src="/public/JS/app-Menu.js"></script>
 </body>
 </html>
