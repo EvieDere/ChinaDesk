@@ -54,7 +54,7 @@ async function login (req, res) {
     if (!ok) return res.status(401).json({ error: "Credenciales inválidas" });
 
     const expiredMinutes = 10;
-    const expiresAt = new(Date(Date.now() + expiredMinutes * 60 * 1000));
+    const expiresAt = new Date(Date.now() + expiredMinutes * 60 * 1000);
 
     const session = await Session.create(
         {
@@ -71,7 +71,7 @@ async function login (req, res) {
             sid: String(session._id)
         },
         process.env.JWT_SECRET,
-        { expiresIn: `${expMinutes}m`}
+        { expiresIn: `${expiredMinutes}m`}
     );
 
     // return res.status(201).json({ jwt_token: token });

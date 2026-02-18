@@ -1,22 +1,21 @@
 const express = require('express');
-const { auth } = require('../middleware/auth');
 const { addprodav, readinv, updinv, deleteprodinv } = require('../controllers/inventory.controllers')
 
 const router = express.Router();
 
 //Post
-router.post('/add-product', auth, addprodav);
+router.post('/add-product', addprodav);
 
 
 //Get
-router.get('/read-inv', auth, readinv);
+router.get('/read-inv', readinv);
 
 
 //Put
-router.put('/:id', auth, updinv);
+router.put('/:id', updinv);
 
 
 //Delete
-router.delete("/:id", auth, deleteprodinv);
+router.delete("/:id", deleteprodinv);
 
 module.exports = router;
