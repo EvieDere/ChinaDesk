@@ -6,8 +6,8 @@ const cookieParser = require("cookie-parser");
 const authRoutes = require('./routes/auth.routes');
 const orderRoutes = require('./routes/order.routes');
 const errorHandler = require('./middleware/error_handler');
-const stewRoutes = require('./routes/stew.routes');
-const productRoutes = require('./routes/products.routes');
+const inventoryRoutes = require('./routes/inventory.routes');
+const menuRoutes = require('./routes/menu.routes');
 
 const app = express();
 
@@ -21,8 +21,8 @@ app.use(errorHandler);
 // API routes
 app.use("/api/auth", authRoutes);
 app.use("/api/order", orderRoutes);
-app.use("/api/stew", stewRoutes);
-app.use("/api/product", productRoutes);
+app.use("/api/inventory", inventoryRoutes);
+app.use("/api/menu", menuRoutes);
 
 // Health check
 app.get('/health', (req, res) => {

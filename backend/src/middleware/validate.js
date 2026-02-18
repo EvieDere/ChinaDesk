@@ -1,12 +1,11 @@
 //Validaciones, retroalimentacion, etc
-
-const{ validationResults } = require("express-validator");
+const { validationResult } = require("express-validator");
 
 //Next hace continuación al algoritmo
-function validate(req, res, next){
-    const result = validationResults(req);
+function validate (req, res, next) {
+    const result = validationResult(req);
 
-    if (validationResults.isEmpty()) {
+    if (!result.isEmpty()) {
         res.status(400);
         return next(new Error(result.array().map(e => e.msg).join(", ")));
     }

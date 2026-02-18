@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const ProductSchema = new mongoose.Schema(
+const MenuSchema = new mongoose.Schema(
     {
         product: {
             type: String,
@@ -19,4 +19,4 @@ const ProductSchema = new mongoose.Schema(
     { timestamps: true}
 );
 
-module.exports = mongoose.model('Products', ProductSchema);
+module.exports = mongoose.model('Menu', MenuSchema);

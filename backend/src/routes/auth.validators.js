@@ -9,7 +9,7 @@ const registerValidator = [
 
 const loginValidator = [
     body("email").isEmail().withMessage("Introduce un email válido"),
-    body("password").isEmpty().withMessage("Introduce la contraseña")
+    body("password").notEmpty().withMessage("Introduce la contraseña")
 ];
 
 module.exports = { registerValidator, loginValidator };
