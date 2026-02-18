@@ -1,8 +1,9 @@
 const express = require('express');
 const Orders = require('../models/Orders');
-const router = express.Router(); 
+const router = express.Router();
 const auth = require('../middleware/auth');
-router.use(auth);
+
+//router.use(auth);
 
 router.post('/make-order', async (req, res) => {
     const { product, productPrice, stew, drink, drinkPrice, totalPrice, arrivalTime  } = req.body;
