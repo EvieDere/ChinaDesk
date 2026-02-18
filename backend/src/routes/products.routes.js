@@ -4,7 +4,7 @@ const auth = require('../middleware/auth');
 
 const router = express.Router();
 
-router.use(auth);
+//router.use(auth);
 
 //Post
 router.post('/create-product', async (req, res) => {

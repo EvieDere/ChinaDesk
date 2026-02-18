@@ -3,6 +3,7 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
+const Session = require("../models/Session");
 
 //const router = express.Router(); // encargado de direccionar
 
@@ -54,14 +55,49 @@ async function login (req, res) {
     const ok = await bcrypt.compare(password, user.passwordHash);
     if (!ok) return res.status(401).json({ error: "Credenciales inválidas" });
 
-    const token = jwt.sign(
-        { sub: String(user.id), email: user.email },
-        process.env.JWT_SECRET,
-        { expiresIn: "2h" }
+    const expiredMinutes = 10;
+    const expiresAt = new(Date(Date.now() + expiredMinutes * 60 * 1000));
+
+    const session = await Session.create(
+        {
+            userId: user._id,
+            expiresAt
+        }
     );
 
-    // return res.status(201)
-    res.cookie("access_token", token, cookieOptions()).json({ ok: true});
+    const token = jwt.sign(
+        {
+            sub: String(user.id),
+            email: user.email,
+            role: user.role,
+            sid: String(session._id)
+        },
+        process.env.JWT_SECRET,
+        { expiresIn: `${expMinutes}m`}
+    );
+
+    // return res.status(201).json({ jwt_token: token });
+    res
+    .cookie("access_token", token, cookieOptions())
+    .cookie("session_id", String(session._id), cookieOptions())
+    .json({ ok: true});
 };
 
-module.exports = { register, login };
+async function logout(req, res, next) {
+    const sessionId = req.cookies?.sessionId;
+
+    if(sessionId) {
+        await Session.findByIdAndUpdate(sessionId, { revokedAt: new Date() })
+    }
+
+    res
+        .clearCookie("access_token", cookieOptions())
+        .clearCookie("session_id", cookieOptions())
+        .json({ ok: true});
+};
+
+async function me(req, res) {
+    res.json(req.user);
+};
+
+module.exports = { register, login, logout, me };
