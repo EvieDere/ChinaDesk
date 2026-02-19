@@ -10,6 +10,7 @@ const errorHandler = require('./middleware/error_handler');
 const inventoryRoutes = require('./routes/inventory.routes');
 const menuRoutes = require('./routes/menu.routes');
 const orderRoutes = require('./routes/order.routes');
+const productRoutes = require("./routes/product.routes");
 
 const app = express();
 
@@ -28,6 +29,7 @@ app.use(errorHandler);
 // API routes
 app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
+app.use("/api/products", productRoutes);
 
 app.use("/api/order", orderRoutes);
 app.use("/api/inventory", inventoryRoutes);
