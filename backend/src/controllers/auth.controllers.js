@@ -19,7 +19,7 @@ function cookieOptions() {
 //Llamar metodos HTTP y logica necesaria para interpretarlos
 
 async function register (req, res, next) {
-    const{ email, password } = req.body; //desempaqueta en email y pswd
+    const{ email, password, role } = req.body; //desempaqueta en email y pswd
 
     if (!email || !password) {
         return res.status(400).json({error: "email y password son requeridos"}); //Mensajes genéricos para no batallar
@@ -30,7 +30,7 @@ async function register (req, res, next) {
     if (exists) return res.status(409).json({error: "Usuario no válido"})
 
     const passwordHash = await bcrypt.hash(password, 10);
-    const user = await User.create({ email, passwordHash, role: "user" });
+    const user = await User.create({ email, passwordHash, role: role });
 
     return res.status(200).json(
         {
@@ -82,7 +82,7 @@ async function login (req, res) {
 };
 
 async function logout(req, res, next) {
-    const sessionId = req.cookies?.sessionId;
+    const sessionId = req.cookies?.session_id;
 
     if(sessionId) {
         await Session.findByIdAndUpdate(sessionId, { revokedAt: new Date() })

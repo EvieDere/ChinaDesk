@@ -21,8 +21,14 @@ async function auth(req, res, next) {
         return next(new Error("Token expirado o inválido"));
     }
 
-    const user = await User.findById(payload.sub).select("email role");
+    // Session validation
+    const session = await Session.findById(sessionId);
+    if(!session || session.revokedAt || session.expiresAt <= new Date()) {
+        res.status(401);
+        return next(new Error("Sesión Inválida"));
+    }
 
+    const user = await User.findById(payload.sub).select("email role");
     if(!user) {
         res.status(401);
         return next(new Error("Usuario no existente"));
