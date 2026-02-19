@@ -1,0 +1,87 @@
+body {
+  margin: 0;
+  font-family: "Nunito", sans-serif;
+  background-color: #f8f9fc;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 200px;
+  background: #b22222; /* rojo oriental */
+  color: white;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.sidebar-brand {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  font-family: "SimHei", "Arial", sans-serif; /* toque oriental */
+  letter-spacing: 2px;
+}
+
+.sidebar hr {
+  border: 0;
+  border-top: 1px solid #fff;
+  width: 100%;
+  margin: 10px 0;
+}
+
+/* Botones CRUD en sidebar */
+.crud-btn {
+  background: #fff;
+  color: #b22222;
+  border: none;
+  padding: 8px 12px;
+  margin: 5px 0;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  width: 100%;
+  text-align: left;
+  transition: background 0.3s, color 0.3s;
+}
+
+.crud-btn:hover {
+  background: #e2e6ea;
+  color: #000;
+}
+
+/* Content wrapper */
+#content-wrapper {
+  margin-left: 200px;
+}
+
+/* Topbar */
+.topbar {
+  background: #b22222;
+  color: white;
+  padding: 10px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+}
+
+.profile img {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  margin-left: 8px;
+}
+
+/* Main content */
+.main-content {
+  padding: 20px;
+}
