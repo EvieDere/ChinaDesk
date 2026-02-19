@@ -1,14 +1,16 @@
 const express = require('express');
 const { makeorder, readorder, updorder, deleteorder } = require('../controllers/order.controllers')
+const { requireRole } = require("../middleware/requireRole");
+const { auth } = require("../middleware/auth");
 
 const router = express.Router();
 
-router.post('/make-order', makeorder);
+router.post('/make-order', auth, requireRole("admin"), makeorder);
 
-router.get('/read-orders', readorder);
+router.get('/read-orders', auth, requireRole("admin"), readorder);
 
-router.put('/:id', updorder);
+router.put('/:id', auth, requireRole("admin"), updorder);
 
-router.delete("/:id", deleteorder);
+router.delete("/:id", auth, requireRole("admin"), deleteorder);
 
 module.exports = router;
