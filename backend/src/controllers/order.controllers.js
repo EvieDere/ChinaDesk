@@ -4,29 +4,29 @@ async function makeorder (req, res, next) {
     const { product, productPrice, stew, drink, drinkPrice, totalPrice, arrivalTime  } = req.body;
 
     if (product === undefined || productPrice === undefined || stew === undefined || drink === undefined || drinkPrice === undefined || totalPrice === undefined || arrivalTime === undefined) { //Validación para que el producto no sea nulo
-        return res.status(400).json({error: "All fields must be provided"});
+        return res.status(400).json({error: "Todos los campos son requeridos"});
     }
 
     if (typeof product !== "string") {
-        return res.status(400).json({error: "Product must be a string"});
+        return res.status(400).json({error: "Producto debe ser una cadena de texto"});
     }
     if (typeof productPrice !== "number") {
-        return res.status(400).json({error: "Product Price must be a number"});
+        return res.status(400).json({error: "El precio del producto debe ser un número"});
     }
     if (typeof stew !== "string") {
-        return res.status(400).json({error: "Stew must be a string"});
+        return res.status(400).json({error: "El guiso debe ser una cadena de texto"});
     }
     if (typeof drink !== "string") {
-        return res.status(400).json({error: "Drink must be a string"});
+        return res.status(400).json({error: "La bebida debe ser una cadena de texto"});
     }
     if (typeof drinkPrice !== "number") {
-        return res.status(400).json({error: "Drink Price must be a number"});
+        return res.status(400).json({error: "El precio de la bebida debe ser un número"});
     }
     if (typeof totalPrice !== "number") {
-        return res.status(400).json({error: "Total must be a number"});
+        return res.status(400).json({error: "El total debe ser un número"});
     }
     if (typeof arrivalTime !== "string") {
-        return res.status(400).json({error: "Arrival Time must be a string"});
+        return res.status(400).json({error: "El tiempo de llegada debe ser una cadena de texto"});
     }
 
     const od = await Orders.create({ product, productPrice, stew, drink, drinkPrice, totalPrice, arrivalTime });
@@ -44,45 +44,45 @@ async function updorder (req, res, next) {
 
     const orde = await Orders.find();
     const indexO = orde.findIndex((t) => t.id === id);
-    if (indexO === -1) return res.status(404).json({ error: "ID not found" });
+    if (indexO === -1) return res.status(404).json({ error: "ID no encontrado" });
 
     //Validación para que ambos campos no sean nulos
     if (product === undefined || productPrice === undefined || stew === undefined || drink === undefined || drinkPrice === undefined || totalPrice === undefined || arrivalTime === undefined) {
-        return res.status(400).json({ error: "All fields must be provided" });
+        return res.status(400).json({ error: "Todos los campos son requeridos" });
     }
 
     if (typeof product !== "string") { 
-        return res.status(400).json({error: "product must be a string"});
+        return res.status(400).json({error: "Producto debe ser una cadena de texto"});
     }
     orde[indexO].product = product.trim();
 
     if (typeof productPrice !== "number") { 
-        return res.status(400).json({error: "productPrice must be a number"});
+        return res.status(400).json({error: "El precio del producto debe ser un número"});
     }
     orde[indexO].productPrice = productPrice;
 
     if (typeof stew !== "string") {
-        return res.status(400).json({error: "stew must be a string"});
+        return res.status(400).json({error: "El guiso debe ser una cadena de texto"});
     }
     orde[indexO].stew = stew.trim();
 
     if (typeof drink !== "string") { 
-        return res.status(400).json({error: "drink must be a string"});
+        return res.status(400).json({error: "La bebida debe ser una cadena de texto"});
     }
     orde[indexO].drink = drink.trim();
 
     if (typeof drinkPrice !== "number") {
-        return res.status(400).json({error: "drinkPrice must be a number"});
+        return res.status(400).json({error: "El precio de la bebida debe ser un número"});
     }
     orde[indexO].drinkPrice = drinkPrice;
 
     if (typeof totalPrice !== "number") { 
-        return res.status(400).json({error: "totalPrice must be a number"});
+        return res.status(400).json({error: "El total debe ser un número"});
     }
     orde[indexO].totalPrice = totalPrice;
 
     if (typeof arrivalTime !== "string") { 
-        return res.status(400).json({error: "arrivalTime must be a string"});
+        return res.status(400).json({error: "El tiempo de llegada debe ser una cadena de texto"});
     }
     orde[indexO].arrivalTime = arrivalTime;
 
@@ -97,10 +97,10 @@ async function deleteorder (req, res, next) {
 
     const delO = await Orders.findOneAndDelete({ _id: id });
     if (!delO) {
-        return res.status(404).json({ error: "Order not found" });
+        return res.status(404).json({ error: "Orden no encontrada" });
     }
 
-    res.status(204).send({error: "Order deleted succesfully"});
+    res.status(204).send({error: "Orden eliminada exitosamente"});
 };
 
 module.exports = { makeorder, readorder, updorder, deleteorder };

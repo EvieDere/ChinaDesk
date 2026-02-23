@@ -6,11 +6,12 @@ const cookieParser = require("cookie-parser");
 const authRoutes = require('./routes/auth.routes');
 const userRoutes = require('./routes/user.routes');
 const errorHandler = require('./middleware/error_handler');
+const productRoutes = require("./routes/product.routes");
 
 const inventoryRoutes = require('./routes/inventory.routes');
 const menuRoutes = require('./routes/menu.routes');
 const orderRoutes = require('./routes/order.routes');
-const productRoutes = require("./routes/product.routes");
+const suggRoutes = require("./routes/suggestions.routes");
 
 const app = express();
 
@@ -34,6 +35,7 @@ app.use("/api/products", productRoutes);
 app.use("/api/order", orderRoutes);
 app.use("/api/inventory", inventoryRoutes);
 app.use("/api/menu", menuRoutes);
+app.use("/api/sugg", suggRoutes);
 
 // Health check
 app.get('/health', (req, res) => {
