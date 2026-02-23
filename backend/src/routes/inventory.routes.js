@@ -5,19 +5,19 @@ const { auth } = require("../middleware/auth");
 
 const router = express.Router();
 
-//Post
+//Post /api/inventory/add-product
 router.post('/add-product', auth, requireRole("admin"), addprodav);
 
 
-//Get
+//Get /api/inventory/read-inv
 router.get('/read-inv', auth, requireRole("admin"), readinv);
 
 
-//Put
+//Put /api/inventory/:id
 router.put('/:id', auth, requireRole("admin"), updinv);
 
 
-//Delete
+//Delete /api/inventory/:id
 router.delete("/:id", auth, requireRole("admin"), deleteprodinv);
 
 module.exports = router;

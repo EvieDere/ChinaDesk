@@ -4,14 +4,14 @@ async function addprodav (req, res, next) {
     const { product, availability } = req.body;
     
     if (product === undefined || availability === undefined) { //Validación para que el producto no sea nulo
-        return res.status(400).json({error: "Both fields need to be filled out"});
+        return res.status(400).json({error: "Ambos campos deben de llenarse"});
     }
 
     const existe = await Inventory.findOne({ product }); //findOne busca una sola coincidencia
-    if (existe) return res.status(400).json({error: "Product already exists"});
+    if (existe) return res.status(400).json({error: "Producto ya existe"});
 
     if (typeof availability !== "boolean") { //Validación para que availability sea valor booleano
-        return res.status(400).json({error: "Availability must be a boolean"});
+        return res.status(400).json({error: "La disponibilidad debe ser un dato booleano"});
     }
 
     const inv = await Inventory.create({ product, availability });
@@ -29,23 +29,23 @@ async function updinv (req, res, next) {
 
     const inve = await Inventory.find();
     const indexI = inve.findIndex((t) => t.id === id);
-    if (indexI === -1) return res.status(404).json({ error: "ID not found" });
+    if (indexI === -1) return res.status(404).json({ error: "ID no encontrado" });
 
     //Validación para que ambos campos no sean nulos
     if (product === undefined || availability === undefined) {
-        return res.status(400).json({ error: "Both product and availability must be provided" });
+        return res.status(400).json({ error: "Ambos campos son requeridos" });
     }
 
     const existe = await Inventory.findOne({ product });
-    if (existe) return res.status(400).json({error: "Product already exists"});
+    if (existe) return res.status(400).json({error: "Producto ya existe"});
 
     if (typeof product != "string" || !product.trim()) {
-            return res.status(400).json({ error: "Product must be a string" });
+            return res.status(400).json({ error: "El producto debe ser una cadena de texto" });
     }
     inve[indexI].product = product.trim();
 
     if (typeof availability != "boolean") {
-        return res.status(400).json({error: "Availability must be a boolean"});
+        return res.status(400).json({error: "La disponibilidad debe ser un dato booleano"});
     }
     inve[indexI].availability = availability;
     inve[indexI].updatedAt = new Date().toISOString();
@@ -59,10 +59,10 @@ async function deleteprodinv (req, res, next) {
 
     const delI = await Inventory.findOneAndDelete({ _id: id });
     if (!delI) {
-        return res.status(404).json({ error: "Product not found" });
+        return res.status(404).json({ error: "Producto no encontrado" });
     }
 
-    res.status(204).send({error: "Product deleted succesfully"});
+    res.status(204).send({error: "Producto eliminado exitosamente"});
 };
 
 module.exports = { addprodav, readinv, updinv, deleteprodinv };
