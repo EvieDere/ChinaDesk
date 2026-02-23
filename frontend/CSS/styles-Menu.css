@@ -12,12 +12,12 @@ body {
 
 /* HEADER */
 header {
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    gap: 30px;
+    padding-top: 80px;  
+    gap: 60px;
 }
 
 h1 {
@@ -171,7 +171,7 @@ h1 {
     box-shadow: 0 0 20px #D4AF37;
 }
 
-button {
+.drink button {
     background: linear-gradient(145deg, #B22222, #8B0000);
     border: 1px solid #D4AF37;
     color: white;
@@ -183,7 +183,7 @@ button {
     transition: 0.2s ease;
 }
 
-button:hover {
+.drink button:hover {
     background: #D4AF37;
     color: black;
     transform: scale(1.1);
@@ -202,4 +202,174 @@ button:hover {
     h1 {
         font-size: 2rem;
     }
+}
+
+/* BOTON SUGERENCIA */
+.btn-sugerencia {
+    margin-top: 15px;
+    padding: 12px 30px;
+    background: linear-gradient(145deg, #D4AF37, #8B0000);
+    border: none;
+    border-radius: 50px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s ease;
+    color: black;
+}
+
+.btn-sugerencia:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px #D4AF37;
+}
+
+/* OVERLAY SUGERENCIA */
+.overlay-sugerencia {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+.overlay-sugerencia.active {
+    display: flex;
+}
+
+/* POPUP */
+.popup-sugerencia {
+    background: linear-gradient(145deg, #1c0000, #2a0000);
+    border: 2px solid #D4AF37;
+    padding: 30px;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+    box-shadow: 0 0 30px rgba(212,175,55,0.4);
+    position: relative;
+}
+
+/* CERRAR */
+.cerrar-sugerencia {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: #8B0000;
+    border: none;
+    color: white;
+    font-size: 1rem;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+
+/* INPUT */
+.input-sugerencia {
+    width: 100%;
+    padding: 12px;
+    margin-top: 20px;
+    border-radius: 50px;
+    border: 1px solid #D4AF37;
+    background: #111;
+    color: white;
+}
+
+/* TEXTAREA */
+.textarea-sugerencia {
+    width: 100%;
+    height: 150px;
+    margin-top: 15px;
+    padding: 15px;
+    border-radius: 15px;
+    border: 1px solid #D4AF37;
+    background: #111;
+    color: white;
+    resize: none;
+}
+
+/* BOTON ENVIAR */
+.btn-enviar-sugerencia {
+    margin-top: 20px;
+    padding: 12px;
+    width: 100%;
+    background: linear-gradient(145deg, #D4AF37, #B22222);
+    border: none;
+    border-radius: 50px;
+    font-weight: bold;
+    cursor: pointer;
+    color: black;
+    transition: 0.3s ease;
+}
+
+.btn-enviar-sugerencia:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px #D4AF37;
+}
+
+/* ========================= */
+/* MARCO SUPERIOR DECORATIVO */
+/* ========================= */
+
+.marco-superior {
+    background-image: url("/frontend/Resources/Img-Menu/DARKWOODRED.png");
+    background-size: cover;
+    background-position: center;
+    width: 85%;
+    max-width: 1100px;
+    padding: 35px 0;
+    border: 4px solid black;
+    border-radius: 10px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+}
+
+/* Anillos laterales */
+.anillo {
+    position: absolute;
+    width: 35px;
+    height: 80px;
+    border-radius: 20px;
+    background: linear-gradient(145deg, #D4AF37, #8B0000);
+}
+
+.anillo-izq {
+    left: 40px;
+}
+
+.anillo-der {
+    right: 40px;
+}
+
+/* Contenedor del título */
+.titulo-container {
+    padding: 15px 60px;
+    background: linear-gradient(145deg, #1c0000, #2a0000);
+    border: 2px solid #D4AF37;
+    border-radius: 15px;
+    box-shadow: 0 0 25px rgba(212,175,55,0.4);
+}
+
+/* Mejoramos hover */
+.marco-superior {
+    background-image: url("/frontend/Resources/Img-Menu/DARKWOODRED.png");
+    background-size: cover;
+    background-position: center;
+    width: 85%;
+    max-width: 1100px;
+    padding: 35px 0;
+    border: 4px solid black;
+    border-radius: 10px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.6);
 }

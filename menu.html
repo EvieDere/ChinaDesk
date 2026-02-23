@@ -5,22 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>China Desk - Pedido</title>
     <link rel="stylesheet" href="/frontend/CSS/styles-Menu.css">
+    <link rel="icon" type="image/png" href="/frontend/Resources/Img-Menu/MenuICON.png">
 </head>
 <body>
 
 <header>
-    <h1>CHINA DESK</h1>
-    <button class="btn-abrir">
-        Hacer Pedido
-        <span class="flecha"></span>
-    </button>
+
+    <div class="marco-superior">
+
+        <div class="anillo anillo-izq"></div>
+        <div class="anillo anillo-der"></div>
+
+        <div class="titulo-container">
+            <h1>CHINA DESK</h1>
+        </div>
+
+    </div>
+        <button id="abrirMenu" class="btn-abrir">
+            Hacer Pedido
+            <span class="flecha"></span>
+        </button>
+
 </header>
 
-<!-- POPUP (visible solo para diseño estático) -->
-<div class="overlay active">
+<!-- PESTAÑA POPUP -->
+<div class="overlay" id="overlay">
     <div class="menu-container">
 
-        <button class="cerrar">✕</button>
+        <button class="cerrar" id="cerrarMenu">✕</button>
 
         <h2>Arma tu Platillo</h2>
 
@@ -28,9 +40,9 @@
         <div class="seccion">
             <h3>1. Elige tu Platillo</h3>
             <div class="opciones">
-                <div class="card">1 Guiso</div>
-                <div class="card">2 Guisos</div>
-                <div class="card">3 Guisos</div>
+                <div class="card" data-package="1" data-price="140">1 Guiso</div>
+                <div class="card" data-package="2" data-price="160">2 Guisos</div>
+                <div class="card" data-package="3" data-price="185">3 Guisos</div>
             </div>
         </div>
 
@@ -38,22 +50,15 @@
         <div class="seccion">
             <h3>2. Arroz o Pasta</h3>
             <div class="opciones">
-                <div class="card">Arroz</div>
-                <div class="card">Pasta</div>
+                <div class="card base-option" data-base="Arroz">Arroz</div>
+                <div class="card base-option" data-base="Pasta">Pasta</div>
             </div>
         </div>
 
         <!-- 3. GUISOS -->
         <div class="seccion">
             <h3>3. Guisos</h3>
-            <div class="opciones">
-                <div class="card">Res</div>
-                <div class="card">Pollo</div>
-                <div class="card">Puerco</div>
-                <div class="card">Res Picante</div>
-                <div class="card">Pollo Picante</div>
-                <div class="card">Puerco Picante</div>
-            </div>
+            <div class="opciones" id="guisos"></div>
         </div>
 
         <!-- 4. BEBIDAS -->
@@ -62,35 +67,101 @@
 
             <div class="drink">
                 <span>Agua</span>
-                <button>-</button>
-                <span>0</span>
-                <button>+</button>
+                <button onclick="changeDrink('agua', -1)">-</button>
+                <span id="agua">0</span>
+                <button onclick="changeDrink('agua', 1)">+</button>
             </div>
 
             <div class="drink">
                 <span>Refresco</span>
-                <button>-</button>
-                <span>0</span>
-                <button>+</button>
+                <button onclick="changeDrink('refresco', -1)">-</button>
+                <span id="refresco">0</span>
+                <button onclick="changeDrink('refresco', 1)">+</button>
             </div>
 
             <div class="drink">
                 <span>Sin Azúcar</span>
-                <button>-</button>
-                <span>0</span>
-                <button>+</button>
+                <button onclick="changeDrink('zero', -1)">-</button>
+                <span id="zero">0</span>
+                <button onclick="changeDrink('zero', 1)">+</button>
             </div>
         </div>
 
+        <!-- TOTAL -->
         <div class="seccion total-section">
-            <h3>Total: $0</h3>
+            <h3>Total: $<span id="total">0</span></h3>
         </div>
 
-        <button class="btn-confirmar">
+        <!-- 5. MÉTODO DE PAGO -->
+        <div class="seccion">
+            <h3>5. Método de Pago</h3>
+
+            <select id="metodoPago">
+                <option value="">Selecciona método</option>
+                <option value="efectivo">Efectivo</option>
+                <option value="tarjeta">Tarjeta</option>
+            </select>
+        </div>
+
+
+        <!-- RECIBO -->
+        <div id="recibo"></div>
+
+        <!-- BOTÓN CONFIRMAR -->
+        <button class="btn-confirmar" id="confirmarPedido" disabled>
             Confirmar Pedido
         </button>
 
     </div>
+</div>
+
+<!-- OVERLAY SUGERENCIAS -->
+<div class="overlay-sugerencia" id="overlaySugerencia" >
+  <div class="popup-sugerencia">
+    <button class="cerrar-sugerencia" id="cerrarSugerencia">X</button>
+
+    <h2>Dejar Sugerencia</h2>
+
+    <input 
+      type="text" 
+      id="nombreUsuario" 
+      placeholder="Nombre de usuario"
+      class="input-sugerencia"
+    >
+
+    <textarea 
+      id="comentarioUsuario" 
+      placeholder="Puedes dejar aquí tu queja o sugerencia"
+      class="textarea-sugerencia"
+    ></textarea>
+
+    <button class="btn-enviar-sugerencia" id="btnEnviarSugerencia" disabled>
+        Enviar
+    </button>
+
+    <button class="btn-enviar-sugerencia" id="btnNoSugerencia">
+        No dejar sugerencia
+    </button>
+
+  </div>
+</div>
+
+<!-- OVERLAY TARJETA -->
+<div class="overlay-sugerencia" id="overlayTarjeta">
+  <div class="popup-sugerencia">
+
+    <h2>Pago con Tarjeta</h2>
+
+    <input type="text" id="numeroTarjeta" placeholder="Número de tarjeta" class="input-sugerencia">
+    <input type="text" id="nombreTarjeta" placeholder="Nombre en la tarjeta" class="input-sugerencia">
+    <input type="text" id="fechaTarjeta" placeholder="MM/AA" class="input-sugerencia">
+    <input type="text" id="cvvTarjeta" placeholder="CVV" class="input-sugerencia">
+
+    <button id="btnListoTarjeta" class="btn-enviar-sugerencia">
+      Listo
+    </button>
+
+  </div>
 </div>
 
 </body>
