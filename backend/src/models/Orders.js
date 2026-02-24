@@ -5,7 +5,6 @@ const OrderSchema = new mongoose.Schema(
         product: {
             type: String,
             required: true,
-            unique: true,
             trim: true,
             lowercase: true
         },
@@ -15,18 +14,25 @@ const OrderSchema = new mongoose.Schema(
             required: true
         },
 
-        stew: {
+        addon: {
             type: String,
             required: true,
-            unique: true,
             trim: true,
             lowercase: true
         },
 
+        stew:[
+            {
+                type: String,
+                required: true,
+                trim: true,
+                lowercase: true
+            }
+        ],
+
         drink: {
             type: String,
             required: true,
-            unique: true,
             trim: true,
             lowercase: true
         },
@@ -42,7 +48,7 @@ const OrderSchema = new mongoose.Schema(
         },
 
         arrivalTime: {
-            type: String,
+            type: Date,
             required: true
         }
     },
