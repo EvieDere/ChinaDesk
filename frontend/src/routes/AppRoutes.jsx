@@ -1,7 +1,7 @@
 //Encargado de decir qué se va a mostrar dependiendo de qué se regrese
 import { Routes, Route, Navigate } from "react-router-dom";
 import Dashboard from "../pages/Dashboard";
-import Home from "../pages/Home";
+import Home_Promo from "../pages/Home_Promo";
 import PrivateRoute from "./PrivateRoute";
 
 //Se definen las rutas
@@ -15,7 +15,7 @@ export default function AppRoutes() {
                 </PrivateRoute>
             }/>
 
-            <Route path="/" element= {<Home />}/>
+            <Route path="/" element= {<Home_Promo />}/>
             <Route path="*" element= {<Navigate to="/" replace/>}/>
         </Routes>
     )
