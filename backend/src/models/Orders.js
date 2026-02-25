@@ -2,14 +2,14 @@ const mongoose = require('mongoose');
 
 const OrderSchema = new mongoose.Schema(
     {
-        product: {
+        package: {
             type: String,
             required: true,
             trim: true,
             lowercase: true
         },
         
-        productPrice: {
+        packagePrice: {
             type: Number,
             required: true
         },
@@ -21,7 +21,7 @@ const OrderSchema = new mongoose.Schema(
             lowercase: true
         },
 
-        stew:[
+        stews:[
             {
                 type: String,
                 required: true,
@@ -30,20 +30,27 @@ const OrderSchema = new mongoose.Schema(
             }
         ],
 
-        drink: {
-            type: String,
-            required: true,
-            trim: true,
-            lowercase: true
-        },
+        drinks: [
+            {
+                type: String,
+                required: true,
+                trim: true,
+                lowercase: true
+            }
+        ],
 
         drinkPrice: {
             type: Number,
             required: true
         },
 
-        totalPrice: {
+        total: {
             type: Number,
+            required: true
+        },
+
+        payM: {
+            type: String,
             required: true
         },
 

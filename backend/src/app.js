@@ -8,9 +8,10 @@ const userRoutes = require('./routes/user.routes');
 const errorHandler = require('./middleware/error_handler');
 const productRoutes = require("./routes/product.routes");
 
-const inventoryRoutes = require('./routes/inventory.routes');
-const menuRoutes = require('./routes/menu.routes');
+const availRoutes = require('./routes/avail.routes');
+const packagesRoutes = require('./routes/packages.routes');
 const orderRoutes = require('./routes/order.routes');
+const drinkRoutes = require('./routes/drink.routes');
 const suggRoutes = require("./routes/suggestions.routes");
 
 const app = express();
@@ -33,8 +34,9 @@ app.use("/api/user", userRoutes);
 app.use("/api/products", productRoutes);
 
 app.use("/api/order", orderRoutes);
-app.use("/api/inventory", inventoryRoutes);
-app.use("/api/menu", menuRoutes);
+app.use("/api/avail", availRoutes);
+app.use("/api/packages", packagesRoutes);
+app.use("/api/drinks", drinkRoutes);
 app.use("/api/sugg", suggRoutes);
 
 // Health check
