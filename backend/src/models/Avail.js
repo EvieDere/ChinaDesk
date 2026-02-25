@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
-const InventorySchema = new mongoose.Schema(
+const AvailSchema = new mongoose.Schema(
     {
-        product : {
+        name : {
             type: String,
             required: true,
             unique: true,
@@ -19,4 +19,4 @@ const InventorySchema = new mongoose.Schema(
     { timestamps: true}
 );
 
-module.exports = mongoose.model('Inventory', InventorySchema);
+module.exports = mongoose.model('Avail', AvailSchema);
