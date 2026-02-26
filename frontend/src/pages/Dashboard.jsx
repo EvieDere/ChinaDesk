@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import NavBar from "../components/NavBar";
-import "./Dashboard.css";
+
+import "../assets/resources/imgMenu";
 
 export default function Menu() {
   return (

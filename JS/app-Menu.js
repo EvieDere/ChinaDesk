@@ -10,14 +10,14 @@ abrirBtn.addEventListener("click", () => {
 
 cerrarBtn.addEventListener("click", () => {
   overlay.classList.remove("active");
-  resetOrder(); // 🔥 LIMPIAR PEDIDO AL CERRAR
+  resetOrder(); 
 });
 
 /* Cerrar al hacer click fuera del menú */
 overlay.addEventListener("click", (e) => {
   if (e.target === overlay) {
     overlay.classList.remove("active");
-    resetOrder(); // 🔥 LIMPIAR TAMBIÉN AQUÍ
+    resetOrder(); 
   }
 });
 
@@ -160,6 +160,7 @@ function calculateTotal() {
 const metodoPago = document.getElementById("metodoPago");
 const confirmarBtn = document.getElementById("confirmarPedido");
 const overlayTarjeta = document.getElementById("overlayTarjeta");
+const cerrarTarjeta = document.getElementById("cerrarTarjeta");
 
 let pagoValido = false;
 
@@ -182,67 +183,248 @@ metodoPago.addEventListener("change", () => {
   }
 });
 
+/* -------- CERRAR TARJETA -------- */
 
-document.getElementById("btnListoTarjeta").addEventListener("click", () => {
+cerrarTarjeta.addEventListener("click", () => {
+  overlayTarjeta.classList.remove("active");
+  metodoPago.value = "";
+});
 
-  const numero = document.getElementById("numeroTarjeta").value;
-  const nombre = document.getElementById("nombreTarjeta").value;
-  const fecha = document.getElementById("fechaTarjeta").value;
-  const cvv = document.getElementById("cvvTarjeta").value;
 
-  if (numero && nombre && fecha && cvv) {
-    pagoValido = true;
-    confirmarBtn.disabled = false;
-    overlayTarjeta.classList.remove("active");
-  } else {
-    alert("Completa todos los datos de la tarjeta");
+/* -------- INPUTS -------- */
+
+const numeroInput = document.getElementById("numeroTarjeta");
+const nombreInput = document.getElementById("nombreTarjeta");
+const fechaInput = document.getElementById("fechaTarjeta");
+const cvvInput = document.getElementById("cvvTarjeta");
+
+
+/* -------- FUNCION ERROR VISUAL -------- */
+
+function marcarError(input){
+  input.classList.add("input-error");
+  setTimeout(() => {
+    input.classList.remove("input-error");
+  }, 500);
+}
+
+
+/* -------- FORMATEAR TARJETA-------- */
+
+numeroInput.addEventListener("input", () => {
+
+  let value = numeroInput.value.replace(/\D/g, "").slice(0,16);
+
+  /* FORMATEO 1234 5678 9012 3456 */
+  value = value.replace(/(\d{4})(?=\d)/g, "$1 ");
+
+  numeroInput.value = value;
+
+  detectarTipoTarjeta(value.replace(/\s/g, ""));
+});
+
+
+function detectarTipoTarjeta(numero){
+
+  if(numero.startsWith("4")){
+    cardTypeDiv.innerText = "💳 Visa";
   }
+  else if(numero.startsWith("5")){
+    cardTypeDiv.innerText = "💳 MasterCard";
+  }
+  else if(numero.startsWith("3")){
+    cardTypeDiv.innerText = "💳 American Express";
+  }
+  else{
+    cardTypeDiv.innerText = "";
+  }
+}
+
+
+/* SOLO LETRAS NOMBRE */
+nombreInput.addEventListener("input", () => {
+  nombreInput.value = nombreInput.value.replace(/[^a-zA-ZÁÉÍÓÚáéíóúÑñ\s]/g, "");
+});
+
+/* FECHA MM/AA */
+fechaInput.addEventListener("input", () => {
+
+  let value = fechaInput.value.replace(/\D/g, "").slice(0,4);
+
+  if (value.length >= 3) {
+    value = value.slice(0,2) + "/" + value.slice(2);
+  }
+
+  fechaInput.value = value;
+});
+
+/* SOLO 3 DIGITOS CVV */
+cvvInput.addEventListener("input", () => {
+  cvvInput.value = cvvInput.value.replace(/\D/g, "").slice(0,3);
+});
+
+
+document.getElementById("btnListoTarjeta").addEventListener("click", (e) => {
+
+  e.preventDefault(); 
+
+  const numero = numeroInput.value.replace(/\s/g, "");
+  const nombre = nombreInput.value.trim();
+  const fecha = fechaInput.value;
+  const cvv = cvvInput.value;
+
+  let valido = true; // bandera de control
+
+  /* RESET ERRORES VISUALES */
+  [numeroInput, nombreInput, fechaInput, cvvInput].forEach(input => {
+    input.classList.remove("input-error");
+  });
+
+  /* VALIDAR NUMERO */
+  if (numero.length !== 16){
+    marcarError(numeroInput);
+    valido = false;
+  }
+
+  /* VALIDAR NOMBRE */
+  if (nombre.length < 3){
+    marcarError(nombreInput);
+    valido = false;
+  }
+
+  /* VALIDAR FECHA */
+  const fechaRegex = /^(0[1-9]|1[0-2])\/\d{2}$/;
+
+  if (!fechaRegex.test(fecha)){
+    marcarError(fechaInput);
+    valido = false;
+  } else {
+
+    const [mes, anio] = fecha.split("/");
+    const fechaActual = new Date();
+    const anioActual = fechaActual.getFullYear() % 100;
+    const mesActual = fechaActual.getMonth() + 1;
+
+    if (
+      parseInt(anio) < anioActual ||
+      (parseInt(anio) === anioActual && parseInt(mes) < mesActual)
+    ){
+      marcarError(fechaInput);
+      valido = false;
+    }
+  }
+
+  /* VALIDAR CVV */
+  if (cvv.length !== 3){
+    marcarError(cvvInput);
+    valido = false;
+  }
+
+  /* 🔥 SI NO ES VALIDO → NO HACE NADA MÁS */
+  if (!valido){
+    pagoValido = false;
+    confirmarBtn.disabled = true;
+    return;
+  }
+
+  /* TODO CORRECTO */
+  pagoValido = true;
+  confirmarBtn.disabled = false;
+  overlayTarjeta.classList.remove("active");
 });
 
 
 /* ---------------- RECIBO ---------------- */
 
-function generateReceipt() {
+const overlayRecibo = document.getElementById("overlayRecibo");
+const contenidoRecibo = document.getElementById("contenidoRecibo");
 
-  if (!order.package || !order.base || order.guisos.length === 0) {
-    alert("Completa tu pedido antes de confirmar");
-    return false;
+function generarReciboPopup() {
+
+  if (!order.package || !order.base || order.guisos.length === 0 || !pagoValido) {
+    alert("Pedido o pago incompleto");
+    return;
   }
 
   calculateTotal();
 
-  const time = new Date();
-  time.setMinutes(time.getMinutes() + 25);
+  let bebidasHTML = "";
+  let bebidaPrecioTotal = 0;
+  let metodoPagoTexto = metodoPago.value;
 
-  document.getElementById('recibo').innerHTML = `
-    <hr>
-    <p><b>Paquete:</b> ${order.package} guisos</p>
+  if (order.drinks.agua > 0) {
+    const subtotal = order.drinks.agua * 20;
+    bebidaPrecioTotal += subtotal;
+    bebidasHTML += `<p>${order.drinks.agua} agua(s) - $${subtotal}</p>`;
+  }
+
+  if (order.drinks.refresco > 0) {
+    const subtotal = order.drinks.refresco * 25;
+    bebidaPrecioTotal += subtotal;
+    bebidasHTML += `<p>${order.drinks.refresco} refresco(s) - $${subtotal}</p>`;
+  }
+
+  if (order.drinks.zero > 0) {
+    const subtotal = order.drinks.zero * 25;
+    bebidaPrecioTotal += subtotal;
+    bebidasHTML += `<p>${order.drinks.zero} sin azúcar - $${subtotal}</p>`;
+  }
+
+  contenidoRecibo.innerHTML = `
+    <p><b>Paquete:</b> ${order.package} guiso(s) - $${order.total - bebidaPrecioTotal}</p>
     <p><b>Base:</b> ${order.base}</p>
-    <p><b>Guisos:</b> ${order.guisos.join(', ')}</p>
+    <p><b>Guisos:</b> ${order.guisos.join(", ")}</p>
+    ${bebidasHTML}
+    <hr>
+    <p><b>Método de pago:</b> ${metodoPagoTexto}</p>
     <p><b>Total:</b> $${order.total}</p>
-    <p><b>Hora aproximada:</b> ${time.toLocaleTimeString()}</p>
-    <br>
-    <button onclick="resetOrder()">Nuevo Pedido</button>
+    <p><b>Hora listo:</b> ${obtenerHoraLista()}</p>
   `;
 
-  return true;
+  overlayRecibo.classList.add("active");
 }
 
+function obtenerHoraLista() {
+  const ahora = new Date();
+  ahora.setMinutes(ahora.getMinutes() + 20);
+
+  const horas = String(ahora.getHours()).padStart(2, '0');
+  const minutos = String(ahora.getMinutes()).padStart(2, '0');
+
+  return `${horas}:${minutos}`;
+}
+
+/* ---------------- CIERRE PROFESIONAL ---------------- */
+
+const overlayConfirmacionFoto = document.getElementById("overlayConfirmacionFoto");
+const btnFotoTomada = document.getElementById("btnFotoTomada");
+const btnVolverRecibo = document.getElementById("btnVolverRecibo");
+const btnCerrarRecibo = document.getElementById("btnCerrarRecibo");
+
+/* Botón flecha del recibo */
+btnCerrarRecibo.addEventListener("click", () => {
+  overlayConfirmacionFoto.classList.add("active");
+});
+
+/* Cliente olvidó tomar foto */
+btnVolverRecibo.addEventListener("click", () => {
+  overlayConfirmacionFoto.classList.remove("active");
+});
+
+/* Cliente sí tomó foto */
+btnFotoTomada.addEventListener("click", () => {
+
+  overlayConfirmacionFoto.classList.remove("active");
+  overlayRecibo.classList.remove("active");
+  overlay.classList.remove("active");
+
+  resetOrder();
+});
 
 /* ---------------- CONFIRMAR ---------------- */
 
 confirmarBtn.addEventListener("click", () => {
-
-  if (!pagoValido) {
-    alert("Selecciona un método de pago válido");
-    return;
-  }
-
-  const generado = generateReceipt();
-
-  if (generado) {
-    overlaySugerencia.classList.add("active");
-  }
+  generarReciboPopup();
 });
 
 
@@ -293,11 +475,48 @@ function resetOrder() {
   document.getElementById('zero').innerText = 0;
 
   document.getElementById('total').innerText = 0;
-  document.getElementById('recibo').innerHTML = '';
+  contenidoRecibo.innerHTML = '';
 
   guisosDiv.innerHTML = '';
-
-  metodoPago.value = "";
+  
   confirmarBtn.disabled = true;
   pagoValido = false;
-}
+
+  // Limpiar método de pago
+  metodoPago.value = "";
+
+  // Limpiar campos tarjeta
+  document.getElementById("numeroTarjeta").value = "";
+  document.getElementById("nombreTarjeta").value = "";
+  document.getElementById("fechaTarjeta").value = "";
+  document.getElementById("cvvTarjeta").value = "";
+
+  // Ocultar formulario tarjeta si lo tienes dinámico
+  formularioTarjeta.style.display = "none";
+  }
+
+/* ---------------- LOGOUT ---------------- */
+
+const logoutBtn = document.getElementById("logoutBtn");
+const overlayLogout = document.getElementById("overlayLogout");
+const btnRegresar = document.getElementById("btnRegresar");
+const btnConfirmLogout = document.getElementById("btnConfirmLogout");
+
+/* Abrir confirmación */
+logoutBtn.addEventListener("click", () => {
+    overlayLogout.classList.add("active");
+});
+
+/* Regresar */
+btnRegresar.addEventListener("click", () => {
+    overlayLogout.classList.remove("active");
+});
+
+/* Confirmar logout */
+btnConfirmLogout.addEventListener("click", () => {
+
+    overlayLogout.classList.remove("active");
+
+    alert("Sesión cerrada correctamente");
+
+});
