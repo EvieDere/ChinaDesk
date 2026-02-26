@@ -6,7 +6,7 @@ const AuthContext = createContext(null);
 //UseState monitorea estados
 export function AuthProvider({ children }){
     const [user, setUser ] = useState(null);
-    const [loading, setLoading ] = useState(null);
+    const [loading, setLoading ] = useState(true);
     const [error, setError ] = useState(null);
 
     //Me sirve para refrescar la sesión (incrementa el tiempo en sesión)
