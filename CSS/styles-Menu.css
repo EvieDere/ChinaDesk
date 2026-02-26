@@ -16,8 +16,8 @@ header {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: 80px;  
-    gap: 60px;
+    justify-content: center;
+    gap: 40px;
 }
 
 h1 {
@@ -316,7 +316,7 @@ h1 {
 /* ========================= */
 
 .marco-superior {
-    background-image: url("/frontend/Resources/Img-Menu/DARKWOODRED.png");
+    background-image: url("/frontend/src/assets/resources/imgMenu/DARKWOODRED.png");
     background-size: cover;
     background-position: center;
     width: 85%;
@@ -359,7 +359,7 @@ h1 {
 
 /* Mejoramos hover */
 .marco-superior {
-    background-image: url("/frontend/Resources/Img-Menu/DARKWOODRED.png");
+    background-image: url("/DARKWOODRED.png");
     background-size: cover;
     background-position: center;
     width: 85%;
@@ -372,4 +372,94 @@ h1 {
     justify-content: center;
     align-items: center;
     box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+}
+
+/* ========================= */
+/* VALIDACION ROJA ANIMADA  */
+/* ========================= */
+
+.input-error {
+    border: 2px solid #ff3b3b !important;
+    animation: shake 0.3s ease;
+    box-shadow: 0 0 10px rgba(255,0,0,0.6);
+}
+
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+    100% { transform: translateX(0); }
+}
+
+/* ICONO TARJETA */
+.card-icon {
+    margin-top: 10px;
+    font-weight: bold;
+    color: #D4AF37;
+}
+
+/* BOTON LOGOUT */
+.btn-logout {
+    position: absolute;
+    top: 25px;
+    right: 40px;
+    padding: 10px 25px;
+    background: #8B0000;
+    border: 1px solid #D4AF37;
+    border-radius: 50px;
+    font-weight: bold;
+    cursor: pointer;
+    color: white;
+    transition: 0.3s ease;
+}
+
+.btn-logout:hover {
+    background: #D4AF37;
+    color: black;
+    transform: scale(1.05);
+}
+
+/* BOTON CONFIRMAR LOGOUT */
+.btn-logout-confirm {
+    margin-top: 15px;
+    padding: 12px;
+    width: 100%;
+    background: red;
+    border: none;
+    border-radius: 50px;
+    font-weight: bold;
+    cursor: pointer;
+    color: white;
+    transition: 0.3s ease;
+}
+
+.btn-logout-confirm:hover {
+    background: darkred;
+}
+
+/* ============== */
+/* METODO DE PAGO */
+/* ============== */
+
+#metodoPago {
+  background: linear-gradient(145deg, #5a0000, #8b0000);
+  color: gold;
+  border: 2px solid gold;
+  border-radius: 25px;
+  padding: 10px 15px;
+  font-size: 14px;
+  outline: none;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+  transition: all 0.3s ease;
+}
+
+#metodoPago:hover {
+  box-shadow: 0 0 20px gold;
+}
+
+#metodoPago option {
+  background-color: #5a0000;
+  color: gold;
 }

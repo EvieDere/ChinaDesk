@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>China Desk - Pedido</title>
     <link rel="stylesheet" href="/CSS/styles-Menu.css">
-    <link rel="icon" type="image/png" href="/CSS/styles-Menu.css">
+    <link rel="icon" type="image/png" href="/Resources/Img-Menu/MenuICON.png">
 </head>
 <body>
 
@@ -24,6 +24,10 @@
         <button id="abrirMenu" class="btn-abrir">
             Hacer Pedido
             <span class="flecha"></span>
+        </button>
+
+        <button id="logoutBtn" class="btn-logout">
+            Cerrar Sesión
         </button>
 
 </header>
@@ -104,9 +108,6 @@
         </div>
 
 
-        <!-- RECIBO -->
-        <div id="recibo"></div>
-
         <!-- BOTÓN CONFIRMAR -->
         <button class="btn-confirmar" id="confirmarPedido" disabled>
             Confirmar Pedido
@@ -150,15 +151,82 @@
 <div class="overlay-sugerencia" id="overlayTarjeta">
   <div class="popup-sugerencia">
 
+    <!-- BOTON CERRAR -->
+    <button class="cerrar-sugerencia" id="cerrarTarjeta">X</button>
+
     <h2>Pago con Tarjeta</h2>
 
-    <input type="text" id="numeroTarjeta" placeholder="Número de tarjeta" class="input-sugerencia">
-    <input type="text" id="nombreTarjeta" placeholder="Nombre en la tarjeta" class="input-sugerencia">
-    <input type="text" id="fechaTarjeta" placeholder="MM/AA" class="input-sugerencia">
-    <input type="text" id="cvvTarjeta" placeholder="CVV" class="input-sugerencia">
+    <input type="text" id="numeroTarjeta" 
+       placeholder="Número de tarjeta (16 dígitos)" 
+       maxlength="19"
+       class="input-sugerencia">
+
+<div id="cardType" class="card-icon"></div>
+
+    <input type="text" id="nombreTarjeta" placeholder="Nombre en la tarjeta" 
+           class="input-sugerencia">
+
+    <input type="text" id="fechaTarjeta" placeholder="MM/AA" 
+           maxlength="5" class="input-sugerencia">
+
+    <input type="text" id="cvvTarjeta" placeholder="CVV" 
+           maxlength="3" class="input-sugerencia">
 
     <button id="btnListoTarjeta" class="btn-enviar-sugerencia">
       Listo
+    </button>
+
+  </div>
+</div>
+
+<!-- OVERLAY LOGOUT -->
+<div class="overlay-sugerencia" id="overlayLogout">
+  <div class="popup-sugerencia">
+
+    <h2>¿Seguro que quieres cerrar sesión?</h2>
+
+    <button id="btnRegresar" class="btn-enviar-sugerencia">
+        Regresar
+    </button>
+
+    <button id="btnConfirmLogout" class="btn-logout-confirm">
+        Cerrar Sesión
+    </button>
+
+  </div>
+</div>
+
+<!-- OVERLAY RECIBO -->
+<div class="overlay-sugerencia" id="overlayRecibo">
+  <div class="popup-sugerencia">
+
+    <h2>Recibo de Compra</h2>
+
+    <div id="contenidoRecibo"></div>
+
+    <p style="margin-top:15px; font-size: 0.9rem;">
+      Recuerda tomar foto a tu recibo para identificar tu pedido al momento de recogerlo
+    </p>
+
+    <button id="btnCerrarRecibo" class="btn-enviar-sugerencia">
+      ➜
+    </button>
+
+  </div>
+</div>
+
+<!-- CONFIRMACION FOTO -->
+<div class="overlay-sugerencia" id="overlayConfirmacionFoto">
+  <div class="popup-sugerencia">
+
+    <h2>¿Recordaste tomar foto a tu recibo?</h2>
+
+    <button id="btnVolverRecibo" class="btn-enviar-sugerencia">
+      No, volver a ver el recibo
+    </button>
+
+    <button id="btnFotoTomada" class="btn-logout-confirm">
+      Sí, le tomé foto
     </button>
 
   </div>
