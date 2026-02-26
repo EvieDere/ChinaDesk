@@ -11,7 +11,8 @@ const OrderSchema = new mongoose.Schema(
         
         packagePrice: {
             type: Number,
-            required: true
+            required: true,
+            min: 0
         },
 
         addon: {
@@ -41,7 +42,8 @@ const OrderSchema = new mongoose.Schema(
 
         drinkPrice: {
             type: Number,
-            required: true
+            required: true,
+            min: 0
         },
 
         total: {
