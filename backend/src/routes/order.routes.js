@@ -1,5 +1,5 @@
 const express = require('express');
-const { makeorder, readorder } = require('../controllers/order.controllers')
+const { makeorder } = require('../controllers/order.controller')
 const { requireRole } = require("../middleware/requireRole");
 const { auth } = require("../middleware/auth");
 
