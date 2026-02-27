@@ -4,6 +4,8 @@ import Dashboard from "../pages/Dashboard";
 import Home_Promo from "../pages/Home_Promo";
 import PrivateRoute from "./PrivateRoute";
 import Products from "../pages/Products";
+import Admin from "../pages/Admin";
+
 
 //Se definen las rutas
 export default function AppRoutes() {
@@ -19,6 +21,8 @@ export default function AppRoutes() {
             <Route path="/" element= {<Home_Promo />}/>
 
             <Route path="/Products" element= {<Products />}/>
+
+            <Route path="/Admin" element= {<Admin />}/>
 
             <Route path="*" element= {<Navigate to="/" replace/>}/>
         </Routes>
