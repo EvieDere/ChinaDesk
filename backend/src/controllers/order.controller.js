@@ -1,61 +1,63 @@
 const Orders = require('../models/Orders');
-const Packages = require('../models/Packages');
-const Avail = require('../models/Avail');
-const Drinks = require('../models/Drinks');
 
 //POST /api/order/make-order
 async function makeorder (req, res, next) {
-    const { productID, drinkID, addonID, stewID, payMS  } = req.body;
+    const { drinksIDQ } = req.body;
 
-    const product = await Packages.findById(productID);
-    const addon = await Avail.findById(addonID);
-    const stew = await Avail.find({
-        _id: { $in: stewID }
-    });
-    const drink = await Drinks.find({
-        _id: { $in: drinkID }
-    });
-        
+    const package = req.package;
+    const addon = req.addon;
+    const stew = req.stew;
+    const drink = req.drink;
+    const payMS = req.payMS;
 
-    if (!product) {
-        return res.status(404).json({error: "Producto no encontrado"});
+    let totalPD = 0;
+    let drinkNames = [];
+
+    for (const d of drinksIDQ) {
+
+        const foundDrink = drink.find(item =>
+            item._id.toString() === d.id
+        );
+
+        const quantity = Number(d.quantity);
+
+        if (isNaN(quantity) || quantity <= 0) {
+            return res.status(400).json({ error: "Cantidad inválida." });
+        }
+
+        if (foundDrink.stock < quantity) {
+            return res.status(400).json({
+                error: `Stock insuficiente para ${foundDrink.name}`
+            });
+        }
+
+        totalPD += foundDrink.price * quantity;
+
+        drinkNames.push({ drk: foundDrink, quantity });
     }
 
-    if (!addon) {
-        return res.status(404).json({error: "Complemento no encontrado"});
+    for (const item of drinkNames) {
+        item.drk.stock -= item.quantity;
+        await item.drk.save();
     }
-    
-    if (!stew.length) {
-        return res.status(404).json({error: "Guiso(s) no encontrado(s)"});
-    }
-
-    if (!drink.length) {
-        return res.status(404).json({error: "Guiso o Bebida no encontrada"});
-    }
-    
-    if (!payMS) {
-        return res.status(400).json({error: "Método de pago no proporcionado"});
-    }
-
 
     const time = 15;
     const arrTime = new Date(Date.now() + time * 60 * 1000);
 
-    let totalPD = 0;
-    for (const item of drink) {
-        totalPD += item.price;
-    }
+    const total = package.price + totalPD;
 
-    const total = product.price + totalPD;
+    const drkNames = drinkNames.map(item =>
+        `${item.drk.name} x${item.quantity}`
+    );
 
     const od = await Orders.create(
         {
-            package: product.name,
-            packagePrice: product.price,
+            package: package.name,
+            packagePrice: package.price,
             addon: addon.name,
             stews: stew.map(item => item.name),
-            drinks: drink.map(item => item.name),
-            drinksPrice: totalPD,
+            drinks: drkNames,
+            drinkPrice: totalPD,
             total: total,
             payM: payMS,
             arrivalTime: arrTime
@@ -63,4 +65,9 @@ async function makeorder (req, res, next) {
     return res.status(201).json({od});
 };
 
-module.exports = { makeorder };
+async function readorder (req, res, next) {
+    const or = await Orders.find(); //Find busca los registros del modelo (orders)
+    return res.status(200).json(or);
+};
+
+module.exports = { makeorder, readorder };

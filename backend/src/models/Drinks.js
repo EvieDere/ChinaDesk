@@ -12,12 +12,14 @@ const DrinksSchema = new mongoose.Schema(
 
         stock: {
             type: Number,
-            required: true
+            required: true,
+            min: 0
         },
         
         price: {
             type: Number,
-            required: true
+            required: true,
+            min: 0
         }
     },
     
