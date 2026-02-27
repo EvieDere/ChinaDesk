@@ -10,6 +10,6 @@ const router = express.Router();
 router.post('/add-sugg', auth, requireRole("user"), addingSugg, addsugg);
 
 //GET /api/order/read-orders
-router.get('/read-sugg', auth, requireRole("user", "admin"), readsuggs);
+router.get('/read-sugg', auth, requireRole("admin"), readsuggs);
 
 module.exports = router;
