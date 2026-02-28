@@ -1,6 +1,6 @@
 //Implementar el llamado hacia el backend, el parse de JSON token y autenticación
 
-async function request(path, option = {}) {
+async function request(path, options = {}) {
     const res = await fetch(path, {
         ...options,
         headers: {
