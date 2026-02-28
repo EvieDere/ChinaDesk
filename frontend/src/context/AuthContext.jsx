@@ -28,19 +28,21 @@ export function AuthProvider({ children }){
         refreshMe();
     }, []);
 
-    async function login(email,password) {
-        setLoading(true);
-        try {
-            setError(null);
-            await authService.login(email, password);
-            await refreshMe();
-            return true;
-        } catch (e) {
-            setError(e.message);
-            setLoading(false);
-            return false;
-        }
-    };
+async function login(email, password) {
+    setLoading(true);
+    try {
+        setError(null);
+        await authService.login(email, password);
+        const me = await authService.me(); 
+        setUser(me);                        
+        setLoading(false);
+        return me;                           
+    } catch (e) {
+        setError(e.message);
+        setLoading(false);
+        return null;
+    }
+};
 
     async function register(email,password) {
         setLoading(true);
