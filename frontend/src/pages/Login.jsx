@@ -22,11 +22,16 @@ export default function Login() {
     };
 
     async function handleLoginSubmit(e) {
-        e.preventDefault();
-        const success = await login(loginData.email, loginData.password);
-        if (success) navigate("/");
+    e.preventDefault();
+    const user = await login(loginData.email, loginData.password); // ✅ user viene del return
+    if (user) {
+        if (user.role === "admin") {
+            navigate("/Admin");
+        } else {
+            navigate("/dashboard");
+        }
     }
-
+}
     async function handleRegisterSubmit(e) {
         e.preventDefault();
         const success = await register(registerData.email, registerData.password);
