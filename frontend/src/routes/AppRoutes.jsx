@@ -5,12 +5,18 @@ import Home_Promo from "../pages/Home_Promo";
 import PrivateRoute from "./PrivateRoute";
 import Products from "../pages/Products";
 import Admin from "../pages/Admin";
+import Login from "../pages/Login";
+import PaginaPrueba from "../pages/PaginaPrueba";
 
 
 //Se definen las rutas
 export default function AppRoutes() {
     return (
         <Routes>
+
+            <Route path="/PaginaPrueba" element={<PaginaPrueba />} />
+
+            <Route path="/login" element={<Login />} />
 
             <Route path="/dashboard" element={
                 <PrivateRoute>
