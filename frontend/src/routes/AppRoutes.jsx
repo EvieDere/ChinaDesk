@@ -1,5 +1,5 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-import Dashboard from "../pages/Dashboard";
+import Menu from "../pages/Menu";
 import Home_Promo from "../pages/Home_Promo";
 import PrivateRoute from "./PrivateRoute";
 import Products from "../pages/Products";
@@ -22,9 +22,9 @@ export default function AppRoutes() {
             }/>
 
             {/* Solo user */}
-            <Route path="/dashboard" element={
+            <Route path="/Menu" element={
                 <PrivateRoute requiredRole="user">
-                    <Dashboard />
+                    <Menu />
                 </PrivateRoute>
             }/>
 
