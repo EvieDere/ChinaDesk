@@ -21,7 +21,6 @@
     font-size: 45px;
     font-family: 'Playfair Display', serif;
     padding-left: 20px;
-    float: left;
     padding-top: 10px;
     background: linear-gradient(to right, #a88d13, #d2b01a, #f0c817, 
     #d2b01a, #a88d13);
@@ -110,16 +109,22 @@
 }
 
 .navbar {
-    position: fixed; /* O absolute, según prefieras */
+    position: fixed;
+    flex-direction: row;
     top: 0;
     left: 0;
     width: 100%;
     padding: 20px 100px;
     display: flex;
-    justify-content: space-between; /* Esto manda el botón a la derecha */
+    justify-content: space-between;
     align-items: center;
     z-index: 99;
-    background: transparent; /* O el color de tu fondo */
+    background: transparent; 
+}
+
+.navigation {
+    display: flex;
+    gap: 20px;
 }
 
 .btnLogin-link {

@@ -7,7 +7,7 @@
     font-family: 'Poppins', sans-serif;
 }
 
-body {
+.bodyLogin {
     min-height: 100vh;
     background: url('../resources/imglogin/background.jpg') no-repeat center center/cover;
     display: flex;
@@ -16,7 +16,7 @@ body {
 }
 
 
-header {
+.headerLogin {
     position: fixed;
     top: 0;
     left: 0;

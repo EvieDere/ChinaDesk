@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import "../assets/styles/Promocional.css";
-import pruebaImg from "../assets/resources/imgsPromo/prueba.png"
+import pruebaImg from "../assets/resources/imgsPromo/prueba.png";
+import Clima from "../components/apiBtn";
 
 export default function Home_Promo() {
     return (
@@ -8,6 +9,7 @@ export default function Home_Promo() {
           <header className="navbar">
             <h2 className="logo">China Food Desk</h2>
             <nav className="navigation">
+                <Clima />
                 <a href="/login" className="btnLogin-link">Login</a>
             </nav>
           </header>

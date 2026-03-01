@@ -1,10 +1,10 @@
 const Avail = require('../models/Avail');
 
 async function addprodav (req, res, next) {
-    const { name, availability } = req.body;
+    const { name, availability, type } = req.body;
     
-    if (name === undefined || availability === undefined) { //Validación para que el producto no sea nulo
-        return res.status(400).json({error: "Ambos campos deben de llenarse"});
+    if (name === undefined || availability === undefined || type === undefined) { //Validación para que el producto no sea nulo
+        return res.status(400).json({error: "Todos los campos deben de llenarse"});
     }
 
     const existe = await Avail.findOne({ name }); //findOne busca una sola coincidencia
@@ -18,7 +18,7 @@ async function addprodav (req, res, next) {
         return res.status(400).json({ error: "El nombre del producto debe ser una cadena de texto" });
     }
 
-    const av = await Avail.create({ name, availability });
+    const av = await Avail.create({ name, availability, type });
     return res.status(201).json({av});
 };
 
@@ -29,10 +29,10 @@ async function readav (req, res, next) {
 
 async function updav (req, res, next) {
     const { id } = req.params;
-    const { name, availability } = req.body;
+    const { name, availability, type } = req.body;
 
-    if (name === undefined || availability === undefined) {
-        return res.status(400).json({ error: "Ambos campos son requeridos" });
+    if (name === undefined || availability === undefined || type === undefined) {
+        return res.status(400).json({ error: "Todos los campos son requeridos" });
     }
 
     if (typeof name !== "string") {
@@ -43,11 +43,16 @@ async function updav (req, res, next) {
         return res.status(400).json({error: "La disponibilidad debe ser un dato booleano"});
     }
 
+    if (typeof type !== "string") {
+        return res.status(400).json({ error: "El tipo del producto debe ser una cadena de texto" });
+    }
+
     const UpdatedA = await Avail.findByIdAndUpdate(
         id,
         {
             name: name.trim().toLowerCase(),
-            availability: availability
+            availability: availability,
+            type: type.trim().toLowerCase()
         },
         { new: true, runValidators: true }
     );

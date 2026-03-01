@@ -1,0 +1,28 @@
+.apiBtnContainer {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.apiBtn {
+    width: 130px;
+    height: 50px;
+    background: transparent;
+    border: 2px solid #fff;
+    outline: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1.1em;
+    color: #fff;
+    font-weight: 500;
+    margin-left: 40px;
+    transition: 0.5s;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.apiBtn:hover {
+    background: rgba(255, 255, 255, 0.1);
+}

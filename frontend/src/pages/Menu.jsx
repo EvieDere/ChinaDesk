@@ -2,8 +2,9 @@ import { useState, useEffect } from "react";
 import { api } from "../services/api";
 import "../assets/styles/Menu.css";
 import { orderData, readPackages, readGuisos, readDrinks } from "../services/order";
-import { useauth } from "../context/AuthContext";
+import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import Clima from "../components/apiBtn";
 
 export default function Menu() {
 
@@ -32,7 +33,7 @@ export default function Menu() {
 
   const handleLogout = async () => {
     await logout();
-    navigate("/");    
+    navigate("/");
   }
 
   useEffect(() => {
@@ -200,32 +201,33 @@ export default function Menu() {
 
   return (
     <div className="china-container">
+      <div className="top-bar">
+        <button
+          onClick = {handleLogout}
+          style = {{
+            padding: "8px 15px",
+            cursor: "pointer",
+            backgroundColor: "#ff4d4d",
+            color: "white",
+            border: "none",
+            borderRadius: "6px"
+          }}
+        >
+          Cerrar sesión
+        </button>
+        <Clima />
+      </div>
 
-      <button
-        onClick = {handleLogout}
-        style = {{
-          position: "absolute",
-          top: "15px",
-          left: "15px",
-          padding: "8px 12px",
-          cursor: "pointer",
-          backgroundColor: "#ff4d4d",
-          color: "white",
-          border: "none",
-          borderRadius: "6px"
-        }}
-      >
-        Cerrar sesión
-      </button>
+      <div className="cajita">
+        <h1 className="titulo">CHINA DESK</h1>
 
-      <h1 className="titulo">CHINA DESK</h1>
-
-      <button
-        className="btn-abrir"
-        onClick={() => setOpenMenu(true)}
-      >
-        Abrir Menú
-      </button>
+        <button
+          className="btn-abrir"
+          onClick={() => setOpenMenu(true)}
+        >
+          Abrir Menú
+        </button>
+      </div>
 
       {openMenu && (
         <div className="popup">
