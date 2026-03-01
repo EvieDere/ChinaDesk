@@ -13,6 +13,12 @@ const AvailSchema = new mongoose.Schema(
         availability: {
             type: Boolean,
             required: true
+        },
+
+        type: {
+            type: String,
+            enum: ["side", "stew"],
+            required: true
         }
     },
     

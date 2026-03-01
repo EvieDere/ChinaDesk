@@ -28,7 +28,7 @@ export default function Login() {
         if (user.role === "admin") {
             navigate("/Admin");
         } else {
-            navigate("/dashboard");
+            navigate("/Menu");
         }
     }
 }

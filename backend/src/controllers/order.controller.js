@@ -15,26 +15,32 @@ async function makeorder (req, res, next) {
 
     for (const d of drinksIDQ) {
 
-        const foundDrink = drink.find(item =>
-            item._id.toString() === d.id
-        );
+    const foundDrink = drink.find(item =>
+        item._id.toString() === d.id
+    );
 
-        const quantity = Number(d.quantity);
-
-        if (isNaN(quantity) || quantity <= 0) {
-            return res.status(400).json({ error: "Cantidad inválida." });
-        }
-
-        if (foundDrink.stock < quantity) {
-            return res.status(400).json({
-                error: `Stock insuficiente para ${foundDrink.name}`
-            });
-        }
-
-        totalPD += foundDrink.price * quantity;
-
-        drinkNames.push({ drk: foundDrink, quantity });
+    if (!foundDrink) {
+        return res.status(400).json({
+            error: "Bebida no encontrada en validación"
+        });
     }
+
+    const quantity = Number(d.quantity);
+
+    if (isNaN(quantity) || quantity <= 0) {
+        return res.status(400).json({ error: "Cantidad inválida." });
+    }
+
+    if (foundDrink.stock < quantity) {
+        return res.status(400).json({
+            error: `Stock insuficiente para ${foundDrink.name}`
+        });
+    }
+
+    totalPD += foundDrink.price * quantity;
+
+    drinkNames.push({ drk: foundDrink, quantity });
+}
 
     for (const item of drinkNames) {
         item.drk.stock -= item.quantity;

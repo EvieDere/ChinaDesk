@@ -10,7 +10,7 @@ const router = express.Router();
 router.post('/add-product', auth, requireRole("admin"), createPV, addproduct);
 
 //Get /api/packages/read-products
-router.get('/read-products', auth, requireRole("admin"), readproducts);
+router.get('/read-products', auth, requireRole("admin", "user"), readproducts);
 
 //Put /api/packages/:id
 router.put('/:id', auth, requireRole("admin"), updatePV, updateproducts);

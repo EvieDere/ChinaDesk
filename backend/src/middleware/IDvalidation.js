@@ -2,10 +2,12 @@ const Packages = require('../models/Packages');
 const Avail = require('../models/Avail');
 const Drinks = require('../models/Drinks');
 
+
 //ID validacion por existencias en modelos
 async function IDValidate (req, res, next) {
     const { packageID, drinksIDQ, addonID, stewID, payMS  } = req.body;
 
+    
     const package = await Packages.findById(packageID);
     const addon = await Avail.findById(addonID);
     const stew = await Avail.find({

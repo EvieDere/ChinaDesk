@@ -11,7 +11,7 @@ router.post('/add-product', auth, requireRole("admin"), createAV, addprodav);
 
 
 //Get /api/avail/read-inv
-router.get('/read-inv', auth, requireRole("admin"), readav);
+router.get('/read-inv', auth, requireRole("admin", "user"), readav);
 
 
 //Put /api/avail/:id

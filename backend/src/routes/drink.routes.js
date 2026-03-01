@@ -10,7 +10,7 @@ const router = express.Router();
 router.post('/add-drink', auth, requireRole("admin"), createDV, addDrink);
 
 //Get /api/drinks/read-drinks
-router.get('/read-drinks', auth, requireRole("admin"), readDrinks);
+router.get('/read-drinks', auth, requireRole("admin", "user"), readDrinks);
 
 //Put /api/drinks/:id
 router.put('/:id', auth, requireRole("admin"), updateDV, updateDrink);
