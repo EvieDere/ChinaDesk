@@ -2,7 +2,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import Menu from "../pages/Menu";
 import Home_Promo from "../pages/Home_Promo";
 import PrivateRoute from "./PrivateRoute";
-import Products from "../pages/Products";
+import ApiClima from "../pages/Clima";
 import Admin from "../pages/Admin";
 import Login from "../pages/Login";
 import { useAuth } from "../context/AuthContext";
@@ -12,7 +12,7 @@ export default function AppRoutes() {
         <Routes>
             <Route path="/login" element={<Login />} />
             <Route path="/" element={<Home_Promo />} />
-            <Route path="/Products" element={<Products />} />
+            <Route path="/clima" element= {<ApiClima />}/>
 
             {/* Solo admin */}
             <Route path="/Admin" element={

@@ -43,8 +43,8 @@ export default function Login() {
     }
 
     return (
-        <>
-            <header>
+        <div className="bodyLogin">
+            <header className="headerLogin">
                 <h2 className="logo">China Food Desk</h2>
                 <nav className="navigation">
                     <Link to="/">Home</Link>
@@ -189,6 +189,6 @@ export default function Login() {
                 )}
 
             </div>
-        </>
+        </div>
     );
 }

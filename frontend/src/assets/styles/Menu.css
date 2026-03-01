@@ -20,8 +20,19 @@
     gap: 60px;
 }*/
 
-h1 {
-    font-size: 3rem;
+.cajita {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    height: 100vh;
+    text-align: center;
+}
+
+.titulo {
+    font-size: 5rem;
     letter-spacing: 3px;
 }
 
@@ -36,6 +47,16 @@ h1 {
     font-weight: bold;
     position: relative;
     transition: 0.3s ease;
+    height: 100px;
+}
+
+.top-bar {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    gap: 15px;
+    align-items: center;
 }
 
 .btn-abrir:hover {
